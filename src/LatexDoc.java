@@ -1,8 +1,16 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class LatexDoc {
 	private LatexPreamble preamb;
 	private ArrayList<LatexSection> sections = new ArrayList();
+	private ArrayList<String> lines = new ArrayList();
 	public LatexDoc(String type, String title, String date, String author,ArrayList<LatexPackage> packages){
 		preamb = new LatexPreamble(type,title,date,author,packages);
 	}
@@ -23,5 +31,18 @@ public class LatexDoc {
 		out += "\n\\end{document}\n";
 		
 		return out;
+	}
+	public void toLatexFile(String filename){
+		try {
+			PrintWriter writer = new PrintWriter(filename + ".tex", "UTF-8");
+			writer.write(this.toLatexCode());
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
