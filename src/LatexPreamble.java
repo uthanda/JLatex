@@ -37,9 +37,7 @@ public class LatexPreamble extends LatexContent{
 		out = out + "\n\\title{" + title + "}\n";
 		out = out + "\\author{" + author + "}\n";
 		if(date != null) out = out + "\\date{" + date + "}\n";
-		
-		
-		
+
 		return out;
 	}
 }

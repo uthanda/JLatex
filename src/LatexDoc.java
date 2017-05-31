@@ -1,16 +1,11 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class LatexDoc {
 	private LatexPreamble preamb;
 	private ArrayList<LatexSection> sections = new ArrayList();
-	private ArrayList<String> lines = new ArrayList();
 	public LatexDoc(String type, String title, String date, String author,ArrayList<LatexPackage> packages){
 		preamb = new LatexPreamble(type,title,date,author,packages);
 	}
