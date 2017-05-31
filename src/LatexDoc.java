@@ -12,4 +12,16 @@ public class LatexDoc {
 	public void addSection(LatexSection sec){
 		sections.add(sec);
 	}
+	public String toLatexCode(){
+		String out = "";
+		
+		out += preamb.toLatexCode();
+		out += "\n\\begin{document}\n";
+		out += "\\maketitle\n";
+		for(LatexSection sec : sections) out += sec.toLatexCode();
+		
+		out += "\n\\end{document}\n";
+		
+		return out;
+	}
 }

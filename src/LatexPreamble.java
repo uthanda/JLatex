@@ -28,15 +28,16 @@ public class LatexPreamble extends LatexContent{
 	@Override
 	public String toLatexCode() {
 		String out = "";
-		out = out + "\\documentclass{" + dclass + "}\n";
-		out = out + "\\title{" + title + "}\n";
-		out = out + "\\author{" + author + "}\n";
-		if(date != null) out = out + "\\date{" + date + "}\n";
+		out = out + "\\documentclass{" + dclass + "}\n\n";
 		if(packages != null){
 			for(LatexPackage l : packages){
 				out += l.toLatexCode();
 			}
 		}
+		out = out + "\n\\title{" + title + "}\n";
+		out = out + "\\author{" + author + "}\n";
+		if(date != null) out = out + "\\date{" + date + "}\n";
+		
 		
 		
 		return out;
