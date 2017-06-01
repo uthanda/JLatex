@@ -1,5 +1,5 @@
 # JLaTeX
-A Java Library that allows interfacing with the LaTeX document preparation system.
+A Java Library that allows interfacing with the LaTeX document preparation system. Please note that this library __does not__ handle compilation. It only provides an interface for generating LaTeX code.
 
 ## How To Use
 
