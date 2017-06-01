@@ -24,6 +24,7 @@ public class LatexSection extends LatexContent{
 	public ArrayList<String> getContents(){
 		return contents;
 	}
+	@Override
 	public String toLatexCode() {
 		String out = "";
 		
