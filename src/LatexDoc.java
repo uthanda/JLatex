@@ -5,15 +5,15 @@ import java.util.ArrayList;
 
 public class LatexDoc {
 	private LatexPreamble preamb;
-	private ArrayList<LatexSection> sections = new ArrayList();
-	public LatexDoc(String type, String title, String date, String author,ArrayList<LatexPackage> packages){
-		preamb = new LatexPreamble(type,title,date,author,packages);
+	private ArrayList<LatexContent> contents = new ArrayList();
+	public LatexDoc(String type, String title, String date, String author,ArrayList<LatexPackage> packages,ArrayList<String> dclassopts){
+		preamb = new LatexPreamble(type,title,date,author,packages,dclassopts);
 	}
 	public LatexDoc(LatexPreamble pre){
 		preamb = pre;
 	}
-	public void addSection(LatexSection sec){
-		sections.add(sec);
+	public void addContent(LatexContent cont){
+		contents.add(cont);
 	}
 	public String toLatexCode(){
 		String out = "";
@@ -21,7 +21,7 @@ public class LatexDoc {
 		out += preamb.toLatexCode();
 		out += "\n\\begin{document}\n";
 		out += "\\maketitle\n";
-		for(LatexSection sec : sections) out += sec.toLatexCode();
+		for(LatexContent cont : contents) out += cont.toLatexCode();
 		
 		out += "\n\\end{document}\n";
 		
