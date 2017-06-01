@@ -1,3 +1,5 @@
+package JLatex;
+
 import java.util.ArrayList;
 
 public class LatexSection extends LatexContent{
@@ -22,7 +24,7 @@ public class LatexSection extends LatexContent{
 	public ArrayList<String> getContents(){
 		return contents;
 	}
-	String toLatexCode() {
+	public String toLatexCode() {
 		String out = "";
 		
 		out += "\n\\section{" + name + "}\n";

@@ -1,3 +1,5 @@
+package JLatex;
+
 import java.util.ArrayList;
 
 public class LatexPackage extends LatexContent{
@@ -12,7 +14,7 @@ public class LatexPackage extends LatexContent{
 		this.options = pOptions;
 	}
 	@Override
-	String toLatexCode() {
+	public String toLatexCode() {
 		String out = "";
 		
 		out += "\\usepackage";

@@ -1,3 +1,5 @@
+package JLatex;
+
 import java.util.ArrayList;
 
 public class LatexPreamble extends LatexContent{
