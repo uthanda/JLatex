@@ -1,6 +1,7 @@
 package jlatex;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LatexPackage extends LatexContent
 {
@@ -28,12 +29,7 @@ public class LatexPackage extends LatexContent
 		if (this.options != null)
 		{
 			out += "[";
-			for (String o : options)
-			{
-				out += o;
-				if (options.indexOf(o) != options.size() - 1)
-					out += ",";
-			}
+			out += options.stream().collect(Collectors.joining(","));
 			out += "]";
 		}
 		out += "{" + this.name + "}\n";
