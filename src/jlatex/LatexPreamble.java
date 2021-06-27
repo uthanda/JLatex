@@ -1,5 +1,7 @@
 package jlatex;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LatexPreamble extends LatexContent
@@ -9,68 +11,145 @@ public class LatexPreamble extends LatexContent
 	private String date;
 	private String author;
 	
-	private List<LatexPackage> packages;
-	private List<String> dclassopts = null;
-
-	public LatexPreamble(String dclass, String title, String author)
+	private List<LatexPackage> packages = new ArrayList<>();
+	private List<String> dclassopts = new ArrayList<>();
+	
+	public String getDclass()
 	{
-		this.dclass = dclass;
-		this.title = title;
-		this.author = author;
-		this.dclassopts = null;
-		this.date = null;
-		this.packages = null;
+		return dclass;
 	}
 
-	public LatexPreamble(String dclass, String title, String date, String author, List<String> dclassopts)
+	public void setDclass(String dclass)
 	{
 		this.dclass = dclass;
-		this.title = title;
-		this.date = date;
-		this.author = author;
-		this.dclassopts = dclassopts;
-		this.packages = null;
+	}
+	
+	public LatexPreamble dclass(String dclass)
+	{
+		this.dclass = dclass;
+		return this;
 	}
 
-	public LatexPreamble(String dclass, String title, String date, String author, List<LatexPackage> packages, List<String> dclassopts)
+	public String getTitle()
 	{
-		this.dclass = dclass;
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
 		this.title = title;
+	}
+	
+	public LatexPreamble title(String title)
+	{
+		this.title = title;
+		return this;
+	}
+
+	public String getDate()
+	{
+		return date;
+	}
+
+	public void setDate(String date)
+	{
 		this.date = date;
+	}
+	
+	public LatexPreamble date(String date)
+	{
+		this.date = date;
+		return this;
+	}
+
+	public String getAuthor()
+	{
+		return author;
+	}
+
+	public void setAuthor(String author)
+	{
 		this.author = author;
-		this.packages = packages;
-		this.dclassopts = dclassopts;
+	}
+
+	public LatexPreamble author(String author)
+	{
+		this.author = author;
+		return this;
+	}
+
+	public List<LatexPackage> getPackages()
+	{
+		return packages;
+	}
+
+	public LatexPreamble addPackages(List<LatexPackage> packages)
+	{
+		this.packages.addAll(packages);
+		return this;
+	}
+	
+	public LatexPreamble addPackage(LatexPackage lp)
+	{
+		this.packages.add(lp);
+		return this;
+	}
+
+	public List<String> getDclassopts()
+	{
+		return dclassopts;
+	}
+
+	public LatexPreamble addDclassopts(List<String> dclassopts)
+	{
+		this.dclassopts.addAll(dclassopts);
+		return this;
+	}
+	
+	public LatexPreamble addDclassopt(String dclassopts)
+	{
+		this.dclassopts.add(dclassopts);
+		return this;
 	}
 
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		String out = "";
-		out = out + "\\documentclass";
+		writer.print("\\documentclass");
+		
 		if (dclassopts != null)
 		{
-			out += "[";
+			writer.print('[');
 			for (String s : dclassopts)
 			{
-				out += s;
+				writer.print(s);
 				if (dclassopts.indexOf(s) != dclassopts.size() - 1)
-					out += ",";
+				{
+					writer.print(',');
+				}
 			}
-			out += "]";
+			writer.print(']');
 		}
-		out += "{" + dclass + "}\n\n";
+		
+		writer.print("{");
+		writer.print(dclass);
+		writer.println("}");
+		
 		if (packages != null)
 		{
 			for (LatexPackage l : packages)
 			{
-				out += l.toLatexCode();
+				l.write(writer);
 			}
 		}
-		out = out + "\n\\title{" + title + "}\n";
-		out = out + "\\author{" + author + "}\n";
-		if (date != null)
-			out = out + "\\date{" + date + "}\n";
 
-		return out;
+		writer.println("\\title{" + title + "}");
+		writer.println("\\author{" + author + "}");
+		
+		if (date != null) {
+			writer.print("\\date{");
+			writer.print(date);
+			writer.println("}");
+		}
 	}
 }

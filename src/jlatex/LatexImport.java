@@ -1,39 +1,52 @@
 package jlatex;
 
-public class LatexImport extends LatexContent
-{
-	private String basePath;
-	private String fileName;
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
 
-	public LatexImport(String basePath, String fileName)
+public class LatexImport extends LatexCommand
+{
+	private LatexText basePath = new LatexText();
+	private LatexText fileName = new LatexText();
+	
+	private LatexCurlyBraceCommandParameter basePathParam = new LatexCurlyBraceCommandParameter(basePath);
+	private LatexCurlyBraceCommandParameter fileNameParam = new LatexCurlyBraceCommandParameter(fileName);
+
+	public LatexImport()
 	{
-		this.basePath = basePath;
-		this.fileName = fileName;
+		super("import");
+		addParameter(basePathParam);
+		addParameter(fileNameParam);
 	}
 
 	public String getBasePath()
 	{
-		return basePath;
+		return basePath.getContent();
 	}
 
 	public void setBasePath(String basePath)
 	{
-		this.basePath = basePath;
+		this.basePath.setContent(basePath);
+	}
+	
+	public LatexImport basePath(String basePath)
+	{
+		this.basePath.setContent(basePath);
+		return this;
 	}
 
 	public String getFileName()
 	{
-		return fileName;
+		return fileName.getContent();
 	}
 
 	public void setFileName(String fileName)
 	{
-		this.fileName = fileName;
+		this.fileName.setContent(fileName);
 	}
-
-	@Override
-	public String toLatexCode()
+	
+	public LatexImport fileName(String fileName)
 	{
-		return String.format("\\import{%s}{%s}%n", basePath, fileName);
+		this.fileName.setContent(fileName);
+		return this;
 	}
 }

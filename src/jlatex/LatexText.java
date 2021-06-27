@@ -1,27 +1,44 @@
 package jlatex;
 
+import java.io.PrintWriter;
+
 public class LatexText extends LatexContent
 {
-	private String content;
+	private String text;
 	
-	public LatexText(String content)
+	public LatexText()
 	{
-		this.content = content;
 	}
 	
-	public String getContent()
+	public LatexText(String text)
 	{
-		return content;
+		this.text = text;
+	}
+	
+	public LatexText(Integer integer)
+	{
+		this.text = integer.toString();
 	}
 
-	public void setContent(String content)
+	public String getContent()
 	{
-		this.content = content;
+		return text;
+	}
+
+	public void setContent(String text)
+	{
+		this.text = text;
 	}
 
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		return super.applyLatexEscapes(content);
+		writer.print(this.applyLatexEscapes(text));
+	}
+
+	public LatexContent content(String text)
+	{
+		this.text = text;
+		return this;
 	}
 }

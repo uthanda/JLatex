@@ -1,40 +1,54 @@
 package jlatex;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LatexPackage extends LatexContent
 {
-	String name;
-	List<String> options;
-
-	public LatexPackage(String pName)
+	private String name;
+	private List<String> options = new ArrayList<>();
+	
+	public String getName()
 	{
-		this.name = pName;
-		this.options = null;
+		return name;
 	}
 
-	public LatexPackage(String pName, List<String> pOptions)
+	public void setName(String name)
 	{
-		this.name = pName;
-		this.options = pOptions;
+		this.name = name;
+	}
+
+	public LatexPackage name(String name)
+	{
+		this.name = name;
+		return this;
+	}
+
+	public List<String> getOptions()
+	{
+		return options;
+	}
+	
+	public LatexPackage addOption(String option)
+	{
+		options.add(option);
+		return this;
 	}
 
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		String out = "";
+		writer.print("\\usepackage");
 
-		out += "\\usepackage";
 		if (this.options != null)
 		{
-			out += "[";
-			out += options.stream().collect(Collectors.joining(","));
-			out += "]";
+			writer.print("[");
+			writer.print(options.stream().collect(Collectors.joining(",")));
+			writer.print("]");
 		}
-		out += "{" + this.name + "}\n";
 
-		return out;
+		writer.println("{" + this.name + "}");
 	}
-
 }

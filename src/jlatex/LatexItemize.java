@@ -1,6 +1,6 @@
 package jlatex;
 
-public class LatexItemize extends LatexList
+public class LatexItemize extends LatexList<LatexItemize>
 {
 	public LatexItemize()
 	{

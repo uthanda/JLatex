@@ -1,86 +1,49 @@
 package jlatex;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
+
 public class LatexSection extends LatexContent
 {
-	private String name;
-	private List<LatexContent> contents;
-	private List<LatexSection> subsections = new ArrayList<>();
+	private LatexText name = new LatexText();
+	private LatexCurlyBraceCommandParameter nameParameter = new LatexCurlyBraceCommandParameter(name);
+	private LatexCommand section = new LatexCommand("section",nameParameter);
+	
+	private List<LatexContent> contents = new ArrayList<>();
 
-	public LatexSection(String name)
-	{
-		this.name = name;
-		this.contents = new ArrayList<>();
-	}
-
-	public LatexSection(String name, List<LatexContent> contents)
-	{
-		this.name = name;
-		this.contents = contents;
-	}
-
-	public void addContents(LatexContent cont)
+	public LatexSection addContent(LatexContent cont)
 	{
 		contents.add(cont);
-	}
-
-	public void addSubSection(LatexSection subsection)
-	{
-		this.subsections.add(subsection);
+		return this;
 	}
 
 	public String getName()
 	{
-		return name;
+		return name.getContent();
 	}
-
-	public List<LatexContent> getContents()
-	{
-		return contents;
+	
+	public void setName(String name) {
+		this.name.setContent(name);
+	}
+	
+	public LatexSection name(String name) {
+		this.name.setContent(name);
+		return this;
 	}
 
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		String out = "";
-
-		out += "\n\\section{" + name + "}\n";
+		section.write(writer);
+		
 		for (LatexContent s : contents)
 		{
-			out += s.toLatexCode() + "\n\n";
-		}
-		for (LatexSection s : subsections)
-		{
-			out += "\n\\subsection{" + s.getName() + "}\n";
-			for (LatexContent y : s.getContents())
-				out += y.toLatexCode() + "\n\n";
-		}
-
-		return out;
-	}
-
-	public void toLatexFile(String filename)
-	{
-		try
-		{
-			PrintWriter writer = new PrintWriter(filename + ".tex", "UTF-8");
-			writer.write(this.toLatexCode());
-			writer.close();
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			s.write(writer);
+			writer.println();
 		}
 	}
 }

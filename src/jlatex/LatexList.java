@@ -1,47 +1,44 @@
 package jlatex;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LatexList extends LatexContent
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
+
+public abstract class LatexList<T> extends LatexContent
 {
-	private final List<LatexContent> elements = new ArrayList<>();
-	private final String type;
+	private LatexCommand begin = new LatexCommand("begin");
+	private LatexCommand end = new LatexCommand("end");
 	
-	public LatexList(String type)
+	private final List<LatexItem> items = new ArrayList<>();
+	
+	protected LatexList(String type)
 	{
-		this.type = type;
+		begin.addParameter(new LatexCurlyBraceCommandParameter(new LatexText().content(type)));
+		end.addParameter(new LatexCurlyBraceCommandParameter(new LatexText().content(type)));
 	}
 
-	public List<LatexContent> getElements()
+	public List<LatexItem> getElements()
 	{
-		return elements;
+		return items;
 	}
 	
-	public void addElement(LatexContent content)
+	@SuppressWarnings("unchecked")
+	public T addElement(LatexItem content)
 	{
-		this.elements.add(content);
+		this.items.add(content);
+		return (T)this;
 	}
 
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		StringBuilder sb = new StringBuilder();		
+		begin.write(writer);
 		
-		sb.append("\\begin{");
-		sb.append(type);
-		sb.append("}\n");
+		items.forEach(element -> element.write(writer));
 		
-		elements.forEach(element -> {
-			sb.append("\t\\item ");
-			sb.append(element.toLatexCode());
-			sb.append("\n");
-		});
-		
-		sb.append("\\end{");
-		sb.append(type);
-		sb.append("}\n");
-		
-		return sb.toString();
+		end.write(writer);
 	}
 }

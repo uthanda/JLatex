@@ -1,5 +1,7 @@
 package jlatex.bibtex;
 
+import java.io.PrintWriter;
+
 import jlatex.LatexContent;
 
 public class BibtexResourceEntry extends LatexContent
@@ -12,8 +14,8 @@ public class BibtexResourceEntry extends LatexContent
 	}
 	
 	@Override
-	public String toLatexCode()
+	public void write(PrintWriter writer)
 	{
-		return String.format("\\addbibresource{%s}", resource);
+		writer.printf("\\addbibresource{%s}%s", resource);
 	}
 }

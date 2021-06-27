@@ -1,6 +1,6 @@
 package jlatex;
 
-public class LatexEnumerate extends LatexList
+public class LatexEnumerate extends LatexList<LatexEnumerate>
 {
 	public LatexEnumerate()
 	{

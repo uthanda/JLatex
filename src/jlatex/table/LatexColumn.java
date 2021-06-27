@@ -1,10 +1,12 @@
-package jlatex;
+package jlatex.table;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LatexParagraph extends LatexContent
+import jlatex.LatexContent;
+
+public class LatexColumn extends LatexContent
 {
 	private List<LatexContent> contents = new ArrayList<>();
 
@@ -17,8 +19,8 @@ public class LatexParagraph extends LatexContent
 	{
 		this.contents = contents;
 	}
-	
-	public LatexParagraph addContent(LatexContent content)
+
+	public LatexColumn addContent(LatexContent content)
 	{
 		this.contents.add(content);
 		return this;
@@ -27,6 +29,6 @@ public class LatexParagraph extends LatexContent
 	@Override
 	public void write(PrintWriter writer)
 	{
-		contents.stream().forEach(content -> content.write(writer));
+		contents.forEach(content -> content.write(writer));
 	}
 }

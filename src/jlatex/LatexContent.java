@@ -1,8 +1,14 @@
 package jlatex;
 
+import java.io.PrintWriter;
+
 public abstract class LatexContent
 {
-	public abstract String toLatexCode();
+	public abstract void write(PrintWriter writer);
+	
+	public boolean isEmpty() {
+		return false;
+	}
 
 	public String applyLatexEscapes(String text)
 	{
@@ -22,10 +28,14 @@ public abstract class LatexContent
 			case '_':
 			case '{':
 			case '}':
+			{
 				target.append("\\");
+			}
 
 			default:
+			{
 				target.append((char) character);
+			}
 		}
 	}
 }

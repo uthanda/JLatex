@@ -6,60 +6,55 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
+
 public class LatexDocument
 {
-	private LatexPreamble preamb;
+	private LatexCommand begin = new LatexCommand("begin", new LatexCurlyBraceCommandParameter(new LatexText().content("document")));
+	private LatexCommand end = new LatexCommand("end", new LatexCurlyBraceCommandParameter(new LatexText().content("document")));
+	
+	private LatexPreamble preamble;
 	private List<LatexContent> contents = new ArrayList<>();
 
-	public LatexDocument(String type, String title, String date, String author, List<LatexPackage> packages, List<String> dclassopts)
+	public void setPreamble(LatexPreamble preamble)
 	{
-		preamb = new LatexPreamble(type, title, date, author, packages, dclassopts);
+		this.preamble = preamble;
 	}
 
-	public LatexDocument(LatexPreamble pre)
+	public LatexDocument preamble(LatexPreamble preamble)
 	{
-		preamb = pre;
+		this.preamble = preamble;
+		return this;
 	}
-
-	public void addContent(LatexContent cont)
+	
+	public LatexDocument addContent(LatexContent cont)
 	{
 		contents.add(cont);
+		return this;
 	}
 
-	public String toLatexCode()
+	public void toLatexFile(String filename) throws FileNotFoundException, UnsupportedEncodingException
 	{
-		String out = "";
+		PrintWriter writer = new PrintWriter(filename + ".tex", "UTF-8");
 
-		out += preamb.toLatexCode();
-		out += "\n\\begin{document}\n";
-		out += "\\maketitle\n";
+		preamble.write(writer);
+		
+		writer.println();
+		
+		begin.write(writer);
+		
+		writer.println("\\maketitle");
+		
 		for (LatexContent cont : contents)
 		{
-			out += cont.toLatexCode();
+			cont.write(writer);
 		}
 
-		out += "\n\\end{document}\n";
-
-		return out;
-	}
-
-	public void toLatexFile(String filename)
-	{
-		try
-		{
-			PrintWriter writer = new PrintWriter(filename + ".tex", "UTF-8");
-			writer.write(this.toLatexCode());
-			writer.close();
-		}
-		catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		writer.println();
+		
+		end.write(writer);
+		
+		writer.close();
 	}
 }

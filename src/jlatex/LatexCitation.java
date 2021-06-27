@@ -1,17 +1,28 @@
 package jlatex;
 
-public class LatexCitation extends LatexContent
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
+
+public class LatexCitation extends LatexCommand
 {
-	private String citeKey;
+	private LatexText key = new LatexText(); 
+	private LatexCurlyBraceCommandParameter keyParameter = new LatexCurlyBraceCommandParameter(key);
 
-	public LatexCitation(String citeKey)
-	{
-		this.citeKey = citeKey;
+	public LatexCitation() {
+		super("cite");
+		addParameter(keyParameter);
 	}
-
-	@Override
-	public String toLatexCode()
-	{
-		return String.format("\\cite{%s}", citeKey);
+	
+	public String getKey() {
+		return key.getContent();
+	}
+	
+	public void setKey(String key) {
+		this.key.setContent(key);
+	}
+	
+	public LatexCitation key(String key) {
+		this.key.setContent(key);
+		return this;
 	}
 }
