@@ -1,17 +1,35 @@
 package jlatex.table;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import jlatex.LatexContent;
+import jlatex.content.LatexContentStream;
 
 public class LatexColumnSpecification extends LatexContent
 {
 	private LatexColumnAlignment alignment = LatexColumnAlignment.LEFT_JUSTIFIED;
 
 	private Integer width;
+	private LatexContentStream title = new LatexContentStream();
 	
 	private LatexColumnLine before;
 	private LatexColumnLine after;
+
+	public LatexColumnSpecification addTitleContent(LatexContent content) {
+		title.addContent(content);
+		return this;
+	}
+	
+	public LatexColumnSpecification addTitleContents(List<LatexContent> contents) {
+		title.addContents(contents);
+		return this;
+	}
+	
+	public LatexContentStream getTitle()
+	{
+		return title;
+	}
 
 	public LatexColumnAlignment getAlignment()
 	{

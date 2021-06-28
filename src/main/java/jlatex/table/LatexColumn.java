@@ -1,34 +1,46 @@
 package jlatex.table;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import jlatex.LatexContent;
+import jlatex.content.LatexContentStream;
 
 public class LatexColumn extends LatexContent
 {
-	private List<LatexContent> contents = new ArrayList<>();
+	private LatexContentStream contents = new LatexContentStream();
 
-	public List<LatexContent> getContents()
+	public LatexContentStream getContents()
 	{
 		return contents;
 	}
 
-	public void setContents(List<LatexContent> contents)
+	public void setContents(LatexContentStream contents)
 	{
 		this.contents = contents;
 	}
 
 	public LatexColumn addContent(LatexContent content)
 	{
-		this.contents.add(content);
+		this.contents.addContent(content);
+		return this;
+	}
+	
+	public LatexColumn addContents(List<LatexContent> contents)
+	{
+		this.contents.addContents(contents);
 		return this;
 	}
 
 	@Override
 	public void write(PrintWriter writer)
 	{
-		contents.forEach(content -> content.write(writer));
+		contents.write(writer);
+	}
+
+	public LatexColumn contents(LatexContentStream title)
+	{
+		this.setContents(title);
+		return this;
 	}
 }

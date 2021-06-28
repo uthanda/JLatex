@@ -1,44 +1,32 @@
 package jlatex;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.command.LatexCommand;
-import jlatex.command.LatexCurlyBraceCommandParameter;
-
-public abstract class LatexList<T> extends LatexContent
+public abstract class LatexList<T> extends LatexBlock<T,LatexItem>
 {
-	private LatexCommand begin = new LatexCommand("begin");
-	private LatexCommand end = new LatexCommand("end");
-	
-	private final List<LatexItem> items = new ArrayList<>();
+	private List<LatexItem> items = new ArrayList<>();
 	
 	protected LatexList(String type)
 	{
-		begin.addParameter(new LatexCurlyBraceCommandParameter(new LatexText().content(type)));
-		end.addParameter(new LatexCurlyBraceCommandParameter(new LatexText().content(type)));
-	}
-
-	public List<LatexItem> getElements()
-	{
-		return items;
+		super(type);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public T addElement(LatexItem content)
-	{
-		this.items.add(content);
-		return (T)this;
+	public T addItem(LatexItem item) {
+		items.add(item);
+		return (T) this;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T addItems(List<LatexItem> items) {
+		items.addAll(items);
+		return (T) this;
 	}
 
 	@Override
-	public void write(PrintWriter writer)
+	protected Iterable<LatexItem> getContents()
 	{
-		begin.write(writer);
-		
-		items.forEach(element -> element.write(writer));
-		
-		end.write(writer);
+		return items;
 	}
 }

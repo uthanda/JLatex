@@ -27,7 +27,14 @@ public class LatexContentRow extends LatexRow
 	@Override
 	public void write(PrintWriter writer)
 	{
-		columns.forEach(column -> column.write(writer));
-		writer.println(" \\\\\n");
+		for(int i = 0; i < columns.size(); i++) {
+			if(i > 0) {
+				writer.print(" & ");
+			}
+			
+			columns.get(i).write(writer);
+		}
+		
+		writer.println(" \\\\");
 	}
 }

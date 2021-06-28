@@ -1,6 +1,8 @@
 package jlatex.table;
 
-public enum LatexColumnAlignment implements LatexEnum
+import jlatex.util.LatexEnumeration;
+
+public enum LatexColumnAlignment implements LatexEnumeration
 {
 	LEFT_JUSTIFIED("l"),
 	CENTERED("c"),

@@ -6,6 +6,7 @@ import java.util.List;
 
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
+import jlatex.content.LatexText;
 
 public class LatexSection extends LatexContent
 {

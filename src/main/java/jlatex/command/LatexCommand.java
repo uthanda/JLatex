@@ -14,11 +14,16 @@ public class LatexCommand extends LatexContent
 
 	public LatexCommand(String name, LatexCommandParameter<?>... parameters) {
 		this.name = name;
-		this.parameters = Arrays.asList(parameters);
+		this.parameters.addAll(Arrays.asList(parameters));
 	}
 	
 	public void addParameter(LatexCommandParameter<?> parameter) {
 		this.parameters.add(parameter);
+	}
+	
+	public void addParameters(List<LatexCommandParameter<?>> parameters)
+	{
+		this.parameters.addAll(parameters);
 	}
 	
 	@Override
@@ -26,6 +31,13 @@ public class LatexCommand extends LatexContent
 	{
 		writer.printf("\\%s", name);
 		
-		parameters.forEach(param -> param.write(writer));
+		parameters.forEach(param -> {
+			
+			if(!param.isPresent()) {
+				return;
+			}
+			
+			param.write(writer);
+		});
 	}
 }

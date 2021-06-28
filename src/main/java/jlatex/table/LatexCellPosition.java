@@ -1,6 +1,8 @@
 package jlatex.table;
 
-public enum LatexCellPosition implements LatexEnum
+import jlatex.util.LatexEnumeration;
+
+public enum LatexCellPosition implements LatexEnumeration
 {
 	BOTTOM("b"),
 	CENTER("c"),

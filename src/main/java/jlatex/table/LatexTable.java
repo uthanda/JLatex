@@ -1,107 +1,84 @@
 package jlatex.table;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import jlatex.LatexBlock;
 import jlatex.LatexCaption;
 import jlatex.LatexContent;
 import jlatex.LatexLabel;
-import jlatex.LatexText;
 import jlatex.command.LatexCommand;
-import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSquareBracketCommandParameter;
+import jlatex.content.LatexNewLine;
+import jlatex.content.LatexText;
 
-public class LatexTable extends LatexContent
+public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 {
 	private LatexText tableModifiers = new LatexText();
-	
-	private LatexSquareBracketCommandParameter tableModifiersParameter = new LatexSquareBracketCommandParameter(tableModifiers);
-	
-	private LatexCommand beginTable = new LatexCommand("table",tableModifiersParameter);
-	
-	private LatexCommand endTable = new LatexCommand("tabular");
-	
-	private LatexEnumText<LatexCellPosition> positionModifiers = new LatexEnumText<>(LatexCellPosition.class);
-	
-	private LatexSquareBracketCommandParameter positionParameter = new LatexSquareBracketCommandParameter(positionModifiers).optional(true);
-	
-	private LatexColumnSpecifications columnSpecifications = new LatexColumnSpecifications();
-	
-	private LatexCurlyBraceCommandParameter columnSpecificationsParameter = new LatexCurlyBraceCommandParameter(columnSpecifications);
-	
-	private LatexCommand beginTabular = new LatexCommand("table",positionParameter,columnSpecificationsParameter);
-	
-	private LatexCommand endTabular = new LatexCommand("tabular");
-	
-	private LatexCaption caption;
-	private LatexLabel label;
 
-	private List<LatexRow> rows = new ArrayList<>();
+	private LatexSquareBracketCommandParameter tableModifiersParameter = new LatexSquareBracketCommandParameter(tableModifiers);
+
+	private boolean centering = false;
+	private boolean captionTop = false;
+
+	private LatexCaption caption = new LatexCaption();
+	private LatexLabel label = new LatexLabel();
+	private LatexTabular tabular = new LatexTabular();
+
+	public LatexTable()
+	{
+		super("table");
+		addBeginParameter(tableModifiersParameter);
+	}
+
+	public LatexTable centering(boolean enable)
+	{
+		this.centering = enable;
+		return this;
+	}
+
+	public LatexTabular getTabular()
+	{
+		return tabular;
+	}
 
 	public LatexCaption getCaption()
 	{
 		return caption;
 	}
 
-	public void setCaption(LatexCaption caption)
+	public void setCaptionShortText(String caption)
 	{
-		this.caption = caption;
+		this.caption.setShortText(caption);
 	}
 
-	public LatexCellPosition getPosition()
+	public LatexTable captionShortText(String caption)
 	{
-		return positionModifiers.getEnumValue();
-	}
-
-	public void setPosition(LatexCellPosition position)
-	{
-		this.positionModifiers.setContent(position);
-	}
-	
-	public LatexTable position(LatexCellPosition position)
-	{
-		this.positionModifiers.setContent(position);
+		setCaptionShortText(caption);
 		return this;
 	}
 
-	public List<LatexColumnSpecification> getColumnSpecifications()
+	public LatexTable addCaptionLongTextContent(LatexContent content)
 	{
-		return columnSpecifications.getColumnSpecifications();
-	}
-	
-	public void setColumnSpecifications(List<LatexColumnSpecification> columnSpecifications)
-	{
-		this.columnSpecifications.setColumnSpecifications(columnSpecifications);
-	}
-
-	public LatexTable addColumnSpecification(LatexColumnSpecification specification)
-	{
-		this.columnSpecifications.addColumnSpecification(specification);
+		this.caption.addLongTextContent(content);
 		return this;
 	}
-	
-	public LatexTable addColumnSpecifications(List<LatexColumnSpecification> specifications)
-	{
-		this.columnSpecifications.addColumnSpecifications(specifications);
-		return this;
-	}
-
-	public List<LatexRow> getRows()
-	{
-		return rows;
-	}
-
-	public void setRows(List<LatexRow> rows)
-	{
-		this.rows = rows;
-	}
-	
-	public LatexTable addRow(LatexRow row)
-	{
-		this.rows.add(row);
-		return this;
-	}
+	//
+	// public LatexCellPosition getPosition()
+	// {
+	// return positionModifiers.getEnumValue();
+	// }
+	//
+	// public void setPosition(LatexCellPosition position)
+	// {
+	// this.positionModifiers.setValue(position);
+	// }
+	//
+	// public LatexTable position(LatexCellPosition position)
+	// {
+	// this.positionModifiers.setValue(position);
+	// return this;
+	// }
 
 	public String getTableModifiers()
 	{
@@ -112,44 +89,57 @@ public class LatexTable extends LatexContent
 	{
 		this.tableModifiers.setContent(tableModifiers);
 	}
-	
+
 	public LatexTable tableModifiers(String tableModifiers)
 	{
 		this.tableModifiers.setContent(tableModifiers);
 		return this;
 	}
 
-	public LatexLabel getLabel()
+	public String getLabel()
 	{
-		return label;
+		return label.getLabel();
 	}
 
-	public void setLabel(LatexLabel label)
+	public void setLabel(String label)
 	{
-		this.label = label;
+		this.label.setLabel(label);
+	}
+
+	public LatexTable label(String label)
+	{
+		setLabel(label);
+		return this;
 	}
 
 	@Override
-	public void write(PrintWriter sb)
+	protected Iterable<LatexContent> getContents()
 	{
-		beginTable.write(sb);
+		List<LatexContent> contents = new ArrayList<>();
 
-		if (caption != null)
+		if (centering)
 		{
-			caption.write(sb);
-		}
-		
-		if (label != null)
-		{
-			label.write(sb);
+			contents.add(new LatexCommand("centering"));
+			contents.add(new LatexNewLine());
 		}
 
-		beginTabular.write(sb);
-		
-		rows.forEach(row -> row.write(sb) );
+		if (captionTop)
+		{
+			contents.add(caption);
+			contents.add(new LatexNewLine());
+		}
 
-		endTabular.write(sb);
-		
-		endTable.write(sb);
+		contents.add(tabular);
+
+		if (!captionTop)
+		{
+			contents.add(caption);
+			contents.add(new LatexNewLine());
+		}
+
+		contents.add(label);
+		contents.add(new LatexNewLine());
+
+		return contents;
 	}
 }

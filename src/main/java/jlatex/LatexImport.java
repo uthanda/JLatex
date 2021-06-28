@@ -2,6 +2,7 @@ package jlatex;
 
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
+import jlatex.content.LatexText;
 
 public class LatexImport extends LatexCommand
 {

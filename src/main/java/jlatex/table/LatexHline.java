@@ -4,7 +4,7 @@ import jlatex.command.LatexCommand;
 
 public class LatexHline extends LatexCommandRow
 {
-	protected LatexHline()
+	public LatexHline()
 	{
 		super(new LatexCommand("hline"));
 	}

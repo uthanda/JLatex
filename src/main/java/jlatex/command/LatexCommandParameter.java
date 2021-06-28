@@ -8,10 +8,11 @@ public abstract class LatexCommandParameter<T> extends LatexContent
 {
 	private final char start, end;
 	private final LatexContent content;
-	
+
 	private boolean optional = false;
-	
-	public LatexCommandParameter(char start, char end, LatexContent content) {
+
+	public LatexCommandParameter(char start, char end, LatexContent content)
+	{
 		this.start = start;
 		this.end = end;
 		this.content = content;
@@ -21,10 +22,15 @@ public abstract class LatexCommandParameter<T> extends LatexContent
 	public void write(PrintWriter writer)
 	{
 		writer.write(start);
-		content.write(writer);
+
+		if (content != null)
+		{
+			content.write(writer);
+		}
+
 		writer.write(end);
 	}
-	
+
 	public void setOptional(boolean optional)
 	{
 		this.optional = optional;
@@ -36,8 +42,9 @@ public abstract class LatexCommandParameter<T> extends LatexContent
 		this.optional = optional;
 		return (T) this;
 	}
-	
-	public boolean isPresent() {
+
+	public boolean isPresent()
+	{
 		return !optional || !content.isEmpty();
 	}
 }

@@ -1,6 +1,8 @@
-package jlatex;
+package jlatex.content;
 
 import java.io.PrintWriter;
+
+import jlatex.LatexContent;
 
 public class LatexInteger extends LatexContent
 {

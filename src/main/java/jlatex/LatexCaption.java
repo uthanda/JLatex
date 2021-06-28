@@ -3,6 +3,7 @@ package jlatex;
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSquareBracketCommandParameter;
+import jlatex.content.LatexText;
 
 public class LatexCaption extends LatexCommand
 {
@@ -10,11 +11,11 @@ public class LatexCaption extends LatexCommand
 	private LatexText shortText = new LatexText();
 	
 	private LatexCurlyBraceCommandParameter longParameter = new LatexCurlyBraceCommandParameter(longText);
-	private LatexSquareBracketCommandParameter shortParameter = new LatexSquareBracketCommandParameter(shortText);
+	private LatexSquareBracketCommandParameter shortParameter = new LatexSquareBracketCommandParameter(shortText).optional(true);
 	
 	public LatexCaption()
 	{
-		super("citation");
+		super("caption");
 		addParameter(longParameter);
 		addParameter(shortParameter);
 	}

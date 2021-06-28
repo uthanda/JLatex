@@ -15,4 +15,12 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.junit.jupiter</groupId>
+  		<artifactId>junit-jupiter-engine</artifactId>
+  		<version>5.7.2</version>
+  		<type>pom.sha512</type>
+  	</dependency>
+  </dependencies>
 </project>

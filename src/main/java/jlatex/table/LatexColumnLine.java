@@ -1,6 +1,8 @@
 package jlatex.table;
 
-public enum LatexColumnLine implements LatexEnum
+import jlatex.util.LatexEnumeration;
+
+public enum LatexColumnLine implements LatexEnumeration
 {
 	SINGLE("|"),
 	DOUBLE("||");
