@@ -59,9 +59,9 @@ class LatexContentRowTest
 	{
 		assertEquals(0, row1.getColumns().size());
 		assertEquals(1, row2.getColumns().size());
-		assertEquals("TheText", ((LatexText) row2.getColumns().get(0).getContents().get(0)).getContent());
+		assertEquals("TheText", ((LatexText) row2.getColumns().get(0).getContents().getContents().get(0)).getContent());
 		assertEquals(2, row3.getColumns().size());
-		assertEquals("TheText", ((LatexText) row3.getColumns().get(0).getContents().get(0)).getContent());
-		assertEquals("TheNextText", ((LatexText) row3.getColumns().get(1).getContents().get(0)).getContent());
+		assertEquals("TheText", ((LatexText) row3.getColumns().get(0).getContents().getContents().get(0)).getContent());
+		assertEquals("TheNextText", ((LatexText) row3.getColumns().get(1).getContents().getContents().get(0)).getContent());
 	}
 }

@@ -4,14 +4,15 @@ import java.io.PrintWriter;
 
 import jlatex.command.LatexCommand;
 
-public class LatexCommandRow extends LatexRow
+public class LatexCommandRow implements LatexRow
 {
-	private LatexCommand command;
-	
-	protected LatexCommandRow(LatexCommand command) {
+	private LatexCommand<?> command;
+
+	protected LatexCommandRow(LatexCommand<?> command)
+	{
 		this.command = command;
 	}
-	
+
 	@Override
 	public void write(PrintWriter writer)
 	{

@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
-public class LatexColumnSpecifications extends LatexContent
+public class LatexColumnSpecifications implements LatexContent
 {
 	private List<LatexColumnSpecification> columnSpecifications = new ArrayList<>();
 
@@ -25,19 +25,19 @@ public class LatexColumnSpecifications extends LatexContent
 	{
 		this.columnSpecifications = columnSpecifications;
 	}
-	
+
 	public LatexColumnSpecifications columnSpecifications(List<LatexColumnSpecification> columnSpecifications)
 	{
 		this.columnSpecifications = columnSpecifications;
 		return this;
 	}
-	
+
 	public LatexColumnSpecifications addColumnSpecifications(List<LatexColumnSpecification> columnSpecifications)
 	{
 		this.columnSpecifications.addAll(columnSpecifications);
 		return this;
 	}
-	
+
 	public LatexColumnSpecifications addColumnSpecification(LatexColumnSpecification columnSpecification)
 	{
 		this.columnSpecifications.add(columnSpecification);

@@ -1,6 +1,6 @@
 package jlatex.command;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
 public class LatexSquareBracketCommandParameter extends LatexCommandParameter<LatexSquareBracketCommandParameter>
 {

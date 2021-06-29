@@ -2,52 +2,57 @@ package jlatex.table;
 
 import java.util.List;
 
-import jlatex.LatexContent;
-import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
+import jlatex.command.LatexSimpleCommand;
 import jlatex.content.LatexContentStream;
 import jlatex.content.LatexInteger;
+import jlatex.util.LatexContent;
 
 public class LatexMultiColumn extends LatexColumn
 {
 	private LatexInteger columns = new LatexInteger();
-	
+
 	private LatexCurlyBraceCommandParameter columnsParameter = new LatexCurlyBraceCommandParameter(columns);
 
 	private LatexColumnSpecification columnSpecification = new LatexColumnSpecification();
-	
-	private LatexColumnSpecifications columnSpecifications = new LatexColumnSpecifications().addColumnSpecification(columnSpecification );
-	
+
+	private LatexColumnSpecifications columnSpecifications = new LatexColumnSpecifications().addColumnSpecification(columnSpecification);
+
 	private LatexCurlyBraceCommandParameter columnSpecificationsParameter = new LatexCurlyBraceCommandParameter(columnSpecifications);
-	
-	private LatexContentStream content = new LatexContentStream();
-	
+
+	private LatexContentStream<LatexContent> content = new LatexContentStream<>();
+
 	private LatexCurlyBraceCommandParameter contentParameter = new LatexCurlyBraceCommandParameter(content);
-	
+
 	public LatexMultiColumn()
 	{
-		super.addContent(new LatexCommand("multicolumn", columnsParameter, columnSpecificationsParameter, contentParameter));
+		super.addContent(new LatexSimpleCommand("multicolumn", false, columnsParameter, columnSpecificationsParameter, contentParameter));
 	}
 
-	public Integer getColumns() {
+	public Integer getColumns()
+	{
 		return columns.getValue();
 	}
-	
-	public void setColumns(Integer columns) {
+
+	public void setColumns(Integer columns)
+	{
 		this.columns.setValue(columns);
 	}
-	
-	public LatexMultiColumn columns(Integer columns) {
+
+	public LatexMultiColumn columns(Integer columns)
+	{
 		this.setColumns(columns);
 		return this;
 	}
-	
-	public LatexMultiColumn addContent(LatexContent content) {
+
+	public LatexMultiColumn addContent(LatexContent content)
+	{
 		this.content.addContent(content);
 		return this;
 	}
-	
-	public LatexMultiColumn addContents(List<LatexContent> contents) {
+
+	public LatexMultiColumn addContents(List<LatexContent> contents)
+	{
 		this.content.addContents(contents);
 		return this;
 	}
@@ -77,7 +82,7 @@ public class LatexMultiColumn extends LatexColumn
 	{
 		this.columnSpecification.setWidth(width);
 	}
-	
+
 	public LatexMultiColumn width(Integer width)
 	{
 		this.columnSpecification.setWidth(width);
@@ -93,7 +98,7 @@ public class LatexMultiColumn extends LatexColumn
 	{
 		this.columnSpecification.setBefore(before);
 	}
-	
+
 	public LatexMultiColumn before(LatexColumnLine before)
 	{
 		this.columnSpecification.setBefore(before);
@@ -109,7 +114,7 @@ public class LatexMultiColumn extends LatexColumn
 	{
 		this.columnSpecification.setAfter(after);
 	}
-	
+
 	public LatexMultiColumn after(LatexColumnLine after)
 	{
 		this.columnSpecification.setAfter(after);

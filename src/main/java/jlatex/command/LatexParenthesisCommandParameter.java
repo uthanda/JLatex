@@ -1,6 +1,6 @@
 package jlatex.command;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
 public abstract class LatexParenthesisCommandParameter<T> extends LatexCommandParameter<T>
 {

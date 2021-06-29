@@ -1,10 +1,10 @@
-package jlatex;
+package jlatex.util;
 
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.content.LatexText;
 
-public class LatexImport extends LatexCommand
+public class LatexImport extends LatexCommand<LatexImport>
 {
 	private LatexText basePath = new LatexText();
 	private LatexText fileName = new LatexText();

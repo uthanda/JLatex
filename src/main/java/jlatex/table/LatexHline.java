@@ -1,11 +1,11 @@
 package jlatex.table;
 
-import jlatex.command.LatexCommand;
+import jlatex.command.LatexSimpleCommand;
 
 public class LatexHline extends LatexCommandRow
 {
 	public LatexHline()
 	{
-		super(new LatexCommand("hline"));
+		super(new LatexSimpleCommand("hline",false));
 	}
 }

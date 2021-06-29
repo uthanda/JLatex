@@ -1,7 +1,7 @@
 package jlatex.table;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
-public abstract class LatexRow extends LatexContent
+public interface LatexRow extends LatexContent
 {
 }

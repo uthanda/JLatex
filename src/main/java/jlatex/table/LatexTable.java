@@ -3,14 +3,14 @@ package jlatex.table;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.LatexBlock;
-import jlatex.LatexCaption;
-import jlatex.LatexContent;
-import jlatex.LatexLabel;
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexSquareBracketCommandParameter;
 import jlatex.content.LatexNewLine;
 import jlatex.content.LatexText;
+import jlatex.reference.LatexCaption;
+import jlatex.reference.LatexLabel;
+import jlatex.util.LatexBlock;
+import jlatex.util.LatexContent;
 
 public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 {
@@ -119,7 +119,7 @@ public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 
 		if (centering)
 		{
-			contents.add(new LatexCommand("centering"));
+			contents.add(new LatexCommand<>("centering"));
 			contents.add(new LatexNewLine());
 		}
 

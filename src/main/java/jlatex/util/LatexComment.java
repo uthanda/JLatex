@@ -2,9 +2,7 @@ package jlatex.util;
 
 import java.io.PrintWriter;
 
-import jlatex.LatexContent;
-
-public class LatexComment extends LatexContent
+public class LatexComment implements LatexContent
 {
 	private String comment;
 

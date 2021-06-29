@@ -1,20 +1,21 @@
 package jlatex;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.command.LatexCommand;
-import jlatex.command.LatexCurlyBraceCommandParameter;
-import jlatex.content.LatexText;
+import jlatex.command.LatexSimpleCommand;
+import jlatex.util.LatexBlock;
+import jlatex.util.LatexContent;
+import jlatex.util.LatexPreamble;
 
-public class LatexDocument
+public class LatexDocument extends LatexBlock<LatexDocument,LatexContent>
 {
-	private LatexCommand begin = new LatexCommand("begin", new LatexCurlyBraceCommandParameter(new LatexText().content("document")));
-	private LatexCommand end = new LatexCommand("end", new LatexCurlyBraceCommandParameter(new LatexText().content("document")));
-	
+	public LatexDocument()
+	{
+		super("document");
+	}
+
 	private LatexPreamble preamble;
 	private List<LatexContent> contents = new ArrayList<>();
 
@@ -35,27 +36,19 @@ public class LatexDocument
 		return this;
 	}
 
-	public void toLatexFile(String filename) throws FileNotFoundException, UnsupportedEncodingException
+	@Override
+	public void write(PrintWriter writer)
 	{
-		PrintWriter writer = new PrintWriter(filename + ".tex", "UTF-8");
-
 		preamble.write(writer);
 		
-		writer.println();
+		new LatexSimpleCommand("maketitle",true).write(writer);;
 		
-		begin.write(writer);
-		
-		writer.println("\\maketitle");
-		
-		for (LatexContent cont : contents)
-		{
-			cont.write(writer);
-		}
+		super.write(writer);
+	}
 
-		writer.println();
-		
-		end.write(writer);
-		
-		writer.close();
+	@Override
+	protected Iterable<LatexContent> getContents()
+	{
+		return contents;
 	}
 }

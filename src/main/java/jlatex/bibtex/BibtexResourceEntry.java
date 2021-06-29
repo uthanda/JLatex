@@ -1,21 +1,32 @@
 package jlatex.bibtex;
 
-import java.io.PrintWriter;
+import jlatex.command.LatexCommand;
+import jlatex.command.LatexCurlyBraceCommandParameter;
+import jlatex.content.LatexText;
 
-import jlatex.LatexContent;
-
-public class BibtexResourceEntry extends LatexContent
+public class BibtexResourceEntry extends LatexCommand<BibtexResourceEntry>
 {
-	private String resource;
+	private LatexText resource = new LatexText();
 	
-	public BibtexResourceEntry(String resource)
+	public BibtexResourceEntry()
 	{
-		this.resource = resource;
+		super("addbibresource", true);
+		addParameter(new LatexCurlyBraceCommandParameter(resource));
+	}
+
+	public String getResource()
+	{
+		return resource.getContent();
+	}
+
+	public void setResource(String resource)
+	{
+		this.resource.setContent(resource);
 	}
 	
-	@Override
-	public void write(PrintWriter writer)
+	public BibtexResourceEntry resource(String resource)
 	{
-		writer.printf("\\addbibresource{%s}%s", resource);
+		this.setResource(resource);
+		return this;
 	}
 }

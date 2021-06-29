@@ -1,4 +1,4 @@
-package jlatex;
+package jlatex.list;
 
 public class LatexItemize extends LatexList<LatexItemize>
 {

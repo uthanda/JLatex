@@ -1,4 +1,4 @@
-package jlatex;
+package jlatex.list;
 
 public class LatexEnumerate extends LatexList<LatexEnumerate>
 {

@@ -1,10 +1,10 @@
-package jlatex;
+package jlatex.reference;
 
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.content.LatexText;
 
-public class LatexLabel extends LatexCommand
+public class LatexLabel extends LatexCommand<LatexLabel>
 {
 	private LatexText label = new LatexText().escapeCharacters(false);
 	

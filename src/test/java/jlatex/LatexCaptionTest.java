@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import org.junit.jupiter.api.Test;
 
 import jlatex.content.LatexText;
+import jlatex.reference.LatexCaption;
 
 class LatexCaptionTest
 {

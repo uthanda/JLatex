@@ -3,30 +3,32 @@ package jlatex.table;
 import java.io.PrintWriter;
 import java.util.List;
 
-import jlatex.LatexContent;
 import jlatex.content.LatexContentStream;
+import jlatex.util.LatexContent;
 
-public class LatexColumnSpecification extends LatexContent
+public class LatexColumnSpecification implements LatexContent
 {
 	private LatexColumnAlignment alignment = LatexColumnAlignment.LEFT_JUSTIFIED;
 
 	private Integer width;
-	private LatexContentStream title = new LatexContentStream();
-	
+	private LatexContentStream<LatexContent> title = new LatexContentStream<>();
+
 	private LatexColumnLine before;
 	private LatexColumnLine after;
 
-	public LatexColumnSpecification addTitleContent(LatexContent content) {
+	public LatexColumnSpecification addTitleContent(LatexContent content)
+	{
 		title.addContent(content);
 		return this;
 	}
-	
-	public LatexColumnSpecification addTitleContents(List<LatexContent> contents) {
+
+	public LatexColumnSpecification addTitleContents(List<LatexContent> contents)
+	{
 		title.addContents(contents);
 		return this;
 	}
-	
-	public LatexContentStream getTitle()
+
+	public LatexContentStream<LatexContent> getTitle()
 	{
 		return title;
 	}
@@ -56,7 +58,7 @@ public class LatexColumnSpecification extends LatexContent
 	{
 		this.width = width;
 	}
-	
+
 	public LatexColumnSpecification width(Integer width)
 	{
 		this.width = width;
@@ -72,7 +74,7 @@ public class LatexColumnSpecification extends LatexContent
 	{
 		this.before = before;
 	}
-	
+
 	public LatexColumnSpecification before(LatexColumnLine before)
 	{
 		this.before = before;
@@ -88,21 +90,22 @@ public class LatexColumnSpecification extends LatexContent
 	{
 		this.after = after;
 	}
-	
+
 	public LatexColumnSpecification after(LatexColumnLine after)
 	{
 		this.after = after;
 		return this;
 	}
-	
+
 	@Override
 	public void write(PrintWriter writer)
 	{
 		writer.write(before == null ? "" : before.getLatexContent());
-		
+
 		writer.write(alignment.getLatexContent());
-		
-		switch(alignment) {
+
+		switch (alignment)
+		{
 			case PARAGRAPH_TOP:
 			case PARAGRAPH_MIDDLE:
 			case PARAGRAPH_BOTTOM:
@@ -114,7 +117,7 @@ public class LatexColumnSpecification extends LatexContent
 				// NOOP
 				break;
 		}
-		
+
 		writer.print(after == null ? "" : after.getLatexContent());
 	}
 }

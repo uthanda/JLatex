@@ -2,9 +2,9 @@ package jlatex.command;
 
 import java.io.PrintWriter;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
-public abstract class LatexCommandParameter<T> extends LatexContent
+public abstract class LatexCommandParameter<T> implements LatexContent
 {
 	private final char start, end;
 	private final LatexContent content;
@@ -21,6 +21,12 @@ public abstract class LatexCommandParameter<T> extends LatexContent
 	@Override
 	public void write(PrintWriter writer)
 	{
+		// Allow for not rendering if this parameter is optional
+		if (optional && ((content != null && content.isEmpty()) || content == null))
+		{
+			return;
+		}
+
 		writer.write(start);
 
 		if (content != null)
@@ -41,10 +47,5 @@ public abstract class LatexCommandParameter<T> extends LatexContent
 	{
 		this.optional = optional;
 		return (T) this;
-	}
-
-	public boolean isPresent()
-	{
-		return !optional || !content.isEmpty();
 	}
 }

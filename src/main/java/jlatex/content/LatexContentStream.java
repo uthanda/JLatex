@@ -4,29 +4,29 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
-public class LatexContentStream extends LatexContent
+public class LatexContentStream<T extends LatexContent> implements LatexContent
 {
-	private List<LatexContent> contents = new ArrayList<>();
+	private List<T> contents = new ArrayList<>();
 
-	public List<LatexContent> getContents()
+	public List<T> getContents()
 	{
 		return contents;
 	}
 
-	public void setContents(List<LatexContent> contents)
+	public void setContents(List<T> contents)
 	{
 		this.contents = contents;
 	}
 	
-	public LatexContentStream addContents(List<LatexContent> contents)
+	public LatexContentStream<T> addContents(List<T> contents)
 	{
 		this.contents.addAll(contents);
 		return this;
 	}
 	
-	public LatexContentStream addContent(LatexContent content)
+	public LatexContentStream<T> addContent(T content)
 	{
 		this.contents.add(content);
 		return this;

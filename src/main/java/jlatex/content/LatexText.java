@@ -2,9 +2,9 @@ package jlatex.content;
 
 import java.io.PrintWriter;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 
-public class LatexText extends LatexContent
+public class LatexText implements LatexContent
 {
 	private String text = "";
 	private boolean escapeCharacters = true;

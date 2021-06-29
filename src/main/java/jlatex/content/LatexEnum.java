@@ -2,10 +2,10 @@ package jlatex.content;
 
 import java.io.PrintWriter;
 
-import jlatex.LatexContent;
+import jlatex.util.LatexContent;
 import jlatex.util.LatexEnumeration;
 
-public class LatexEnum<E extends Enum<?> & LatexEnumeration> extends LatexContent
+public class LatexEnum<E extends Enum<?> & LatexEnumeration> implements LatexContent
 {
 	private E value;
 	

@@ -3,19 +3,19 @@ package jlatex.table;
 import java.io.PrintWriter;
 import java.util.List;
 
-import jlatex.LatexContent;
 import jlatex.content.LatexContentStream;
+import jlatex.util.LatexContent;
 
-public class LatexColumn extends LatexContent
+public class LatexColumn implements LatexContent
 {
-	private LatexContentStream contents = new LatexContentStream();
+	private LatexContentStream<LatexContent> contents = new LatexContentStream<>();
 
-	public LatexContentStream getContents()
+	public LatexContentStream<LatexContent> getContents()
 	{
 		return contents;
 	}
 
-	public void setContents(LatexContentStream contents)
+	public void setContents(LatexContentStream<LatexContent>contents)
 	{
 		this.contents = contents;
 	}
@@ -38,9 +38,9 @@ public class LatexColumn extends LatexContent
 		contents.write(writer);
 	}
 
-	public LatexColumn contents(LatexContentStream title)
+	public LatexColumn contents(LatexContentStream<LatexContent> contents)
 	{
-		this.setContents(title);
+		this.setContents(contents);
 		return this;
 	}
 }

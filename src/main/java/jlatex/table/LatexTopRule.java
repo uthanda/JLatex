@@ -1,11 +1,11 @@
 package jlatex.table;
 
-import jlatex.command.LatexCommand;
+import jlatex.command.LatexSimpleCommand;
 
 public class LatexTopRule extends LatexCommandRow
 {
 	public LatexTopRule()
 	{
-		super(new LatexCommand("toprule"));
+		super(new LatexSimpleCommand("toprule",true));
 	}
 }
