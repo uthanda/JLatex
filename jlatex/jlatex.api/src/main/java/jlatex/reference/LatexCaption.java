@@ -3,13 +3,13 @@ package jlatex.reference;
 import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSquareBracketCommandParameter;
+import jlatex.content.LatexContentStream;
 import jlatex.content.LatexText;
-import jlatex.organization.LatexParagraph;
 import jlatex.util.LatexContent;
 
 public class LatexCaption extends LatexCommand<LatexCaption>
 {
-	private LatexParagraph longText = new LatexParagraph();
+	private LatexContentStream<LatexContent> longText = new LatexContentStream<>();
 	private LatexText shortText = new LatexText();
 
 	private LatexCurlyBraceCommandParameter longParameter = new LatexCurlyBraceCommandParameter(longText);
@@ -38,7 +38,7 @@ public class LatexCaption extends LatexCommand<LatexCaption>
 		return this;
 	}
 
-	public LatexParagraph getLongText()
+	public LatexContentStream<LatexContent> getLongText()
 	{
 		return longText;
 	}
