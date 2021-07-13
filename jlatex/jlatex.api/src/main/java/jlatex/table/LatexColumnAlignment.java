@@ -2,6 +2,12 @@ package jlatex.table;
 
 import jlatex.util.LatexEnumeration;
 
+/**
+ * Represents column alignment values.
+ * 
+ * @author Michael Oland
+ *
+ */
 public enum LatexColumnAlignment implements LatexEnumeration
 {
 	LEFT_JUSTIFIED("l"),

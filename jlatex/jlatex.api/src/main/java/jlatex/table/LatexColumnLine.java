@@ -2,6 +2,12 @@ package jlatex.table;
 
 import jlatex.util.LatexEnumeration;
 
+/**
+ * Represents a single or double line separator between columns.
+ * 
+ * @author Michael Oland
+ *
+ */
 public enum LatexColumnLine implements LatexEnumeration
 {
 	SINGLE("|"),

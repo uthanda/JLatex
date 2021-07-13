@@ -5,6 +5,13 @@ import java.util.List;
 
 import jlatex.command.LatexCommandParameter;
 
+/**
+ * This represents a block of LaTeX content.
+ * 
+ * @author Michael Oland
+ *
+ * @param <T> Implementing class (for the builder mechanism)
+ */
 public class LatexContentBlock<T> extends LatexBlock<T, LatexContent>
 {
 	private List<LatexContent> contents = new ArrayList<>();
@@ -14,12 +21,21 @@ public class LatexContentBlock<T> extends LatexBlock<T, LatexContent>
 		super(name, parameters);
 	}
 
+	/**
+	 * Gets the contents of the block
+	 */
 	@Override
 	protected Iterable<LatexContent> getContents()
 	{
 		return contents;
 	}
 
+	/**
+	 * Add content to the block
+	 * 
+	 * @param content Content to add
+	 * @return This
+	 */
 	@SuppressWarnings("unchecked")
 	public T addContent(LatexContent content)
 	{
@@ -27,6 +43,12 @@ public class LatexContentBlock<T> extends LatexBlock<T, LatexContent>
 		return (T) this;
 	}
 
+	/**
+	 * Add contents to the block
+	 * 
+	 * @param contents Contents to add
+	 * @return This
+	 */
 	@SuppressWarnings("unchecked")
 	public T addContents(List<LatexContent> contents)
 	{

@@ -2,6 +2,12 @@ package jlatex.layout;
 
 import jlatex.util.LatexEnumeration;
 
+/**
+ * Represents a specific LaTeX measurement unit, such as points, inches, etc.
+ * 
+ * @author Michael Oland
+ *
+ */
 public enum LatexMeasurementUnit implements LatexEnumeration
 {
 	POINT("pt"),

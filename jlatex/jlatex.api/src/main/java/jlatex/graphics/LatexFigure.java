@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jlatex.command.LatexCommand;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSimpleCommand;
 import jlatex.command.LatexSquareBracketCommandParameter;
 import jlatex.content.LatexText;
+import jlatex.layout.page.LatexCentering;
 import jlatex.reference.LatexCaption;
 import jlatex.reference.LatexLabel;
 import jlatex.util.LatexBlock;
 import jlatex.util.LatexContent;
 import jlatex.util.LatexKeyValueList;
-import jlatex.util.LatexPackage;
 import jlatex.util.LatexKeyValueList.LatexKeyValuePair;
+import jlatex.util.LatexPackage;
 
 public class LatexFigure extends LatexBlock<LatexFigure, LatexContent>
 {
@@ -158,7 +158,7 @@ public class LatexFigure extends LatexBlock<LatexFigure, LatexContent>
 
 		if (center)
 		{
-			content.add(new LatexCommand<>("centering"));
+			content.add(new LatexCentering());
 		}
 
 		LatexSimpleCommand includeGraphcisCommand = new LatexSimpleCommand("includegraphics")

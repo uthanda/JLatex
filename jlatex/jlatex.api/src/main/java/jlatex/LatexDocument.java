@@ -9,6 +9,11 @@ import jlatex.util.LatexBlock;
 import jlatex.util.LatexContent;
 import jlatex.util.LatexPreamble;
 
+/**
+ * @author bashterm
+ * @author Michael Oland
+ *
+ */
 public class LatexDocument extends LatexBlock<LatexDocument,LatexContent>
 {
 	public LatexDocument()

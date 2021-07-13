@@ -5,7 +5,13 @@ import java.io.PrintWriter;
 import jlatex.content.LatexContentStream;
 import jlatex.util.LatexContent;
 
-public class LatexDoubleQuoteText extends LatexContentStream<LatexContent>
+/**
+ * Represents a stream of text that is wrapped in double quotes.
+ * 
+ * @author Michael Oland
+ *
+ */
+public class LatexDoubleQuoteText extends LatexContentStream<LatexDoubleQuoteText,LatexContent>
 {
 	public void write(PrintWriter writer)
 	{

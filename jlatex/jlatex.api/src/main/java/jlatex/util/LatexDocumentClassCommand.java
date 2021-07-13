@@ -7,6 +7,12 @@ import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSquareBracketCommandParameter;
 import jlatex.content.LatexText;
 
+/**
+ * Represents the documentclass command for a LaTeX document.
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexDocumentClassCommand extends LatexCommand<LatexDocumentClassCommand>
 {
 	private LatexText className = new LatexText();
@@ -15,8 +21,11 @@ public class LatexDocumentClassCommand extends LatexCommand<LatexDocumentClassCo
 	
 	private LatexTextParameters options = new LatexTextParameters();
 	
-	private LatexSquareBracketCommandParameter optionsParameter = new LatexSquareBracketCommandParameter(className).optional(true); 
+	private LatexSquareBracketCommandParameter optionsParameter = new LatexSquareBracketCommandParameter(options).optional(true); 
 
+	/**
+	 * Creates the command. 
+	 */
 	public LatexDocumentClassCommand()
 	{
 		super("documentclass", true);
@@ -24,16 +33,34 @@ public class LatexDocumentClassCommand extends LatexCommand<LatexDocumentClassCo
 		addParameter(classNameParameter);
 	}
 
+	/**
+	 * Sets the class name
+	 * 
+	 * @param className Class name
+	 * @return This
+	 */
 	public LatexDocumentClassCommand className(String className) {
 		this.className.content(className);
 		return this;
 	}
 	
+	/**
+	 * Adds a document class option
+	 * 
+	 * @param option Option to add
+	 * @return This
+	 */
 	public LatexDocumentClassCommand addOption(String option) {
 		this.options.addParameter(option);
 		return this;
 	}
 
+	/**
+	 * Adds document class options
+	 * 
+	 * @param options Options to add
+	 * @return This
+	 */
 	public LatexDocumentClassCommand addOptions(List<String> options)
 	{
 		this.options.addParameters(options);

@@ -3,94 +3,186 @@ package jlatex.table;
 import java.io.PrintWriter;
 import java.util.List;
 
-import jlatex.content.LatexContentStream;
+import jlatex.content.LatexSimpleContentStream;
+import jlatex.layout.LatexMeasurement;
 import jlatex.util.LatexContent;
 
+/**
+ * Represents the definition of a column in a LaTeX table.
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexColumnSpecification implements LatexContent
 {
 	private LatexColumnAlignment alignment = LatexColumnAlignment.LEFT_JUSTIFIED;
 
-	private Integer width;
-	private LatexContentStream<LatexContent> title = new LatexContentStream<>();
+	private LatexMeasurement width;
+	private LatexSimpleContentStream title = new LatexSimpleContentStream();
 
 	private LatexColumnLine before;
 	private LatexColumnLine after;
 
+	/**
+	 * Adds content to the title
+	 * 
+	 * @param content
+	 *            Content to add
+	 * @return This
+	 */
 	public LatexColumnSpecification addTitleContent(LatexContent content)
 	{
 		title.addContent(content);
 		return this;
 	}
 
+	/**
+	 * Adds contents to the title
+	 * 
+	 * @param contents
+	 *            Contents to add
+	 * @return This
+	 */
 	public LatexColumnSpecification addTitleContents(List<LatexContent> contents)
 	{
 		title.addContents(contents);
 		return this;
 	}
 
-	public LatexContentStream<LatexContent> getTitle()
+	/**
+	 * Gets the title
+	 * 
+	 * @return Title
+	 */
+	public LatexSimpleContentStream getTitle()
 	{
 		return title;
 	}
 
+	/**
+	 * Gets the column alignment
+	 * 
+	 * @return Column alignment
+	 */
 	public LatexColumnAlignment getAlignment()
 	{
 		return alignment;
 	}
 
+	/**
+	 * Sets the column alignment
+	 * 
+	 * @param alignment
+	 *            Column alignment
+	 */
 	public void setAlignment(LatexColumnAlignment alignment)
 	{
 		this.alignment = alignment;
 	}
 
+	/**
+	 * Sets the column alignment
+	 * 
+	 * @param alignment
+	 *            Column alignment
+	 * @return This
+	 */
 	public LatexColumnSpecification alignment(LatexColumnAlignment alignment)
 	{
-		this.alignment = alignment;
+		this.setAlignment(alignment);
 		return this;
 	}
 
-	public Integer getWidth()
+	/**
+	 * Gets the width
+	 * 
+	 * @return Width
+	 */
+	public LatexMeasurement getWidth()
 	{
 		return width;
 	}
 
-	public void setWidth(Integer width)
+	/**
+	 * Sets the width
+	 * 
+	 * @param width Width
+	 */
+	public void setWidth(LatexMeasurement width)
 	{
 		this.width = width;
 	}
 
-	public LatexColumnSpecification width(Integer width)
+	/**
+	 * Sets the width
+	 * 
+	 * @param width Width
+	 * @return This
+	 */
+	public LatexColumnSpecification width(LatexMeasurement width)
 	{
-		this.width = width;
+		this.setWidth(width);
 		return this;
 	}
 
+	/**
+	 * Gets the formatting before the column
+	 * 
+	 * @return Formatting before
+	 */
 	public LatexColumnLine getBefore()
 	{
 		return before;
 	}
 
+	/**
+	 * Sets the formatting before the column
+	 * 
+	 * @param before Formatting before
+	 */
 	public void setBefore(LatexColumnLine before)
 	{
 		this.before = before;
 	}
 
+	/**
+	 * Sets the formatting before the column
+	 * 
+	 * @param before Formatting before
+	 * @return This
+	 */
 	public LatexColumnSpecification before(LatexColumnLine before)
 	{
 		this.before = before;
 		return this;
 	}
 
+	/**
+	 * Gets the formatting after the column
+	 * 
+	 * @return Formatting after
+	 */
 	public LatexColumnLine getAfter()
 	{
 		return after;
 	}
 
+	/**
+	 * Sets the formatting after the column
+	 * 
+	 * @param after Formatting after
+	 */
 	public void setAfter(LatexColumnLine after)
 	{
 		this.after = after;
 	}
 
+	/**
+	 * Sets the formatting after the column
+	 * 
+	 * @param after Formatting after
+	 * @return This
+	 */
 	public LatexColumnSpecification after(LatexColumnLine after)
 	{
 		this.after = after;
@@ -109,9 +201,12 @@ public class LatexColumnSpecification implements LatexContent
 			case PARAGRAPH_TOP:
 			case PARAGRAPH_MIDDLE:
 			case PARAGRAPH_BOTTOM:
-				writer.print('{');
-				writer.print(width);
-				writer.print('}');
+				if (width != null)
+				{
+					writer.print('{');
+					writer.print(width);
+					writer.print('}');
+				}
 				break;
 			default:
 				// NOOP

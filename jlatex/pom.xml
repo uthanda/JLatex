@@ -26,6 +26,15 @@
 				<version>5.7.2</version>
 				<type>pom.sha512</type>
 			</dependency>
+			<dependency>
+				<groupId>jlatex</groupId>
+				<artifactId>jlatex.api</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<modules>
+		<module>jlatex.bibtex</module>
+		<module>jlatex.samples</module>
+	</modules>
 </project>

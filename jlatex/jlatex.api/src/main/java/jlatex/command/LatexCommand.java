@@ -7,17 +7,39 @@ import java.util.List;
 
 import jlatex.util.LatexContent;
 
-public class LatexCommand<T> implements LatexContent
+/**
+ * Represents a LaTeX command (such as \\hline or \begin{}). It can handle
+ * multiple parameter types (ie. \\begin{} or \\usepackage[]{}) and optionally
+ * render a new line at the end of the command.
+ * 
+ * @author Michael Oland
+ *
+ * @param <T> Implementing type for the builder model
+ */
+public abstract class LatexCommand<T> implements LatexContent
 {
 	private final String name;
 	private List<LatexCommandParameter<?>> parameters = new ArrayList<>();
 	private boolean addNewLine = false;
 
+	/**
+	 * Creates a new LatexCommand
+	 * 
+	 * @param name Name of the command
+	 * @param parameters Optional list of parameters to be added to the command.
+	 */
 	public LatexCommand(String name, LatexCommandParameter<?>... parameters)
 	{
 		this(name, false, parameters);
 	}
 
+	/**
+	 * Creates a new LatexCommand
+	 * 
+	 * @param name Name of the command
+	 * @param addNewLine If true, new line character(s) will be rendered into the end of the command
+	 * @param parameters Optional list of parameters to be added to the command.
+	 */
 	public LatexCommand(String name, boolean addNewLine, LatexCommandParameter<?>... parameters)
 	{
 		this.addNewLine = addNewLine;
@@ -25,6 +47,12 @@ public class LatexCommand<T> implements LatexContent
 		this.parameters.addAll(Arrays.asList(parameters));
 	}
 
+	/**
+	 * Adds an additional parameter to the command.
+	 * 
+	 * @param parameter Parameter to add
+	 * @return This
+	 */
 	@SuppressWarnings("unchecked")
 	public T addParameter(LatexCommandParameter<?> parameter)
 	{
@@ -32,6 +60,12 @@ public class LatexCommand<T> implements LatexContent
 		return (T) this;
 	}
 
+	/**
+	 * Adds additional parameters to the command.
+	 * 
+	 * @param parameters Parameters to add
+	 * @return This
+	 */
 	@SuppressWarnings("unchecked")
 	public T addParameters(List<LatexCommandParameter<?>> parameters)
 	{

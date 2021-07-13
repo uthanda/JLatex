@@ -1,32 +1,14 @@
 package jlatex.content;
 
-import java.io.PrintWriter;
-
-import jlatex.util.LatexContent;
-
-public class LatexInteger implements LatexContent
+/**
+ * Represents a integer as LaTeX content. The integer
+ * be rendered directly ({{@link Float#toString()}) or if necessary,
+ * the format can be set by providing a {#link
+ * {@link String#format(String, Object...)} style printf specifier.
+ * 
+ * @author Michael Oland
+ *
+ */
+public class LatexInteger extends LatexNumber<Integer,LatexInteger>
 {
-	private Integer value;
-
-	public Integer getValue()
-	{
-		return value;
-	}
-
-	public void setValue(Integer value)
-	{
-		this.value = value;
-	}
-	
-	public LatexInteger value(Integer value)
-	{
-		this.value = value;
-		return this;
-	}
-
-	@Override
-	public void write(PrintWriter writer)
-	{
-		writer.print(value);
-	}
 }

@@ -6,20 +6,44 @@ import java.util.Map;
 
 import jlatex.layout.LatexMeasurement;
 
+/**
+ * Represents a set of key-value pairs in a comma separated list.  These can be used
+ * in a LatexCommandParameter or wherever key/value pairs are needed.
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexKeyValueList implements LatexContent
 {
 	private Map<String, LatexKeyValuePair<?, ?>> values = new HashMap<>();
 
+	/**
+	 * Gets a specific key/value pair for a given key.
+	 * 
+	 * @param key Key
+	 * @return Corresponding key/value pair
+	 */
 	public LatexKeyValuePair<?, ?> getValue(String key)
 	{
 		return values.get(key);
 	}
 
+	/**
+	 * Sets a specific key/value pair.
+	 * 
+	 * @param pair Key/value pair.
+	 */
 	public void setValue(LatexKeyValuePair<?, ?> pair)
 	{
 		values.put(pair.key, pair);
 	}
 
+	/**
+	 * Sets a specific key/value pair.
+	 * 
+	 * @param pair Key/value pair.
+	 * @return This
+	 */
 	public LatexKeyValueList value(LatexKeyValuePair<?, ?> pair)
 	{
 		this.setValue(pair);
@@ -46,6 +70,12 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents a key to string value pair.
+	 * 
+	 * @author Michael Oland
+	 *
+	 */
 	public static class LatexStringKeyValuePair extends LatexKeyValuePair<LatexStringKeyValuePair, String>
 	{
 		public LatexStringKeyValuePair(String key)
@@ -60,29 +90,17 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents a key to measurement value pair.
+	 * 
+	 * @author Michael Oland
+	 *
+	 */
 	public static class LatexMeasurementKeyValuePair extends LatexKeyValuePair<LatexStringKeyValuePair, LatexMeasurement>
 	{
-		private String units;
-
 		public LatexMeasurementKeyValuePair(String key)
 		{
 			super(key);
-		}
-
-		public String getUnits()
-		{
-			return units;
-		}
-
-		public void setMeasurementSystem(String units)
-		{
-			this.units = units;
-		}
-
-		public LatexMeasurementKeyValuePair measurementSystem(String units)
-		{
-			this.setMeasurementSystem(units);
-			return this;
 		}
 
 		@Override
@@ -92,6 +110,12 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents a key to integer pair.
+	 * 
+	 * @author Michael Oland
+	 *
+	 */
 	public static class LatexIntegerKeyValuePair extends LatexKeyValuePair<LatexStringKeyValuePair, Integer>
 	{
 		public LatexIntegerKeyValuePair(String key)
@@ -106,6 +130,12 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents a key to boolean value pair.
+	 * 
+	 * @author Michael Oland
+	 *
+	 */
 	public static class LatexBooleanKeyValuePair extends LatexKeyValuePair<LatexStringKeyValuePair, Boolean>
 	{
 		public LatexBooleanKeyValuePair(String key)
@@ -120,6 +150,12 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents a key with no value.
+	 * 
+	 * @author Michael Oland
+	 *
+	 */
 	public static class LatexKeyOnlyPair extends LatexKeyValuePair<LatexKeyOnlyPair, Void>
 	{
 		public LatexKeyOnlyPair(String key)
@@ -140,6 +176,14 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	/**
+	 * Represents an abstract key-value pair in a LaTeX command parameter.
+	 * 
+	 * @author Michael Oland
+	 *
+	 * @param <T> Subclass for builder paradigm
+	 * @param <V> Value type
+	 */
 	public static abstract class LatexKeyValuePair<T, V> implements LatexContent
 	{
 		private final String key;

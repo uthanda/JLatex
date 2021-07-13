@@ -15,6 +15,12 @@ import jlatex.util.LatexBlock;
 import jlatex.util.LatexComment;
 import jlatex.util.LatexContent;
 
+/**
+ * Represents a long table that can be split across multiple pages.
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 {
 	private LatexColumnSpecifications columnSpecifications = new LatexColumnSpecifications();
@@ -29,7 +35,7 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 
 	private boolean headers;
 
-	private LatexContentStream<LatexContent> footer;
+	private LatexContentStream<?,LatexContent> footer;
 
 	public LatexLongTable()
 	{
@@ -77,7 +83,7 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 		return this;
 	}
 
-	public LatexLongTable footer(LatexContentStream<LatexContent> content)
+	public LatexLongTable footer(LatexContentStream<?,LatexContent> content)
 	{
 		this.footer = content;
 		return this;

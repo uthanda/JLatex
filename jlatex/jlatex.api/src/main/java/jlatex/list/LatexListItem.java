@@ -6,9 +6,16 @@ import java.util.List;
 
 import jlatex.command.LatexSimpleCommand;
 import jlatex.command.LatexSquareBracketCommandParameter;
+import jlatex.content.LatexNewLine;
 import jlatex.content.LatexText;
 import jlatex.util.LatexContent;
 
+/**
+ * 
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexListItem implements LatexContent
 {
 	private LatexText options = new LatexText().escapeCharacters(false);
@@ -33,6 +40,8 @@ public class LatexListItem implements LatexContent
 	public void write(PrintWriter writer)
 	{
 		item.write(writer);
+		writer.write(' ');
 		contents.forEach(content -> content.write(writer));
+		new LatexNewLine().write(writer);
 	}
 }

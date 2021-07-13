@@ -6,12 +6,18 @@ import jlatex.command.LatexSimpleCommand;
 import jlatex.content.LatexContentStream;
 import jlatex.util.LatexContent;
 
-public class LatexParagraph extends LatexContentStream<LatexContent>
+/**
+ * Represents a paragraph of text as a stream of LatexContent ended with a \\par command.
+ * 
+ * @author Michael Oland
+ *
+ */
+public class LatexParagraph extends LatexContentStream<LatexParagraph,LatexContent>
 {
 	@Override
 	public void write(PrintWriter writer)
 	{
 		super.write(writer);
-		new LatexSimpleCommand("par",false).write(writer);
+		new LatexSimpleCommand("par",true).write(writer);
 	}
 }

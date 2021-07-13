@@ -5,7 +5,13 @@ import java.io.PrintWriter;
 import jlatex.content.LatexContentStream;
 import jlatex.util.LatexContent;
 
-public class LatexSingleQuoteText extends LatexContentStream<LatexContent>
+/**
+ * Represents a stream of text that is wrapped in single quotes.
+ * 
+ * @author Michael Oland
+ *
+ */
+public class LatexSingleQuoteText extends LatexContentStream<LatexSingleQuoteText,LatexContent>
 {
 	public void write(PrintWriter writer)
 	{

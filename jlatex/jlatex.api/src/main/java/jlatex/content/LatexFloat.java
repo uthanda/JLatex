@@ -1,60 +1,14 @@
 package jlatex.content;
 
-import java.io.PrintWriter;
-
-import jlatex.util.LatexContent;
-
-public class LatexFloat implements LatexContent
+/**
+ * Represents a floating point number as LaTeX content. The floating point
+ * number can be rendered directly ({{@link Float#toString()}) or if necessary,
+ * the format can be set by providing a {#link
+ * {@link String#format(String, Object...)} style printf specifier.
+ * 
+ * @author Michael Oland
+ *
+ */
+public class LatexFloat extends LatexNumber<Float,LatexFloat>
 {
-	private Float value;
-	private String format;
-
-	public Float getValue()
-	{
-		return value;
-	}
-
-	public void setValue(Float value)
-	{
-		this.value = value;
-	}
-
-	public LatexFloat value(Float value)
-	{
-		this.value = value;
-		return this;
-	}
-
-	public String getFormat()
-	{
-		return format;
-	}
-
-	public void setFormat(String format)
-	{
-		this.format = format;
-	}
-
-	public LatexFloat format(String format)
-	{
-		this.setFormat(format);
-		return this;
-	}
-
-	@Override
-	public void write(PrintWriter writer)
-	{
-		if (value == null)
-		{
-			return;
-		}
-		else if (format != null)
-		{
-			writer.format(format, value);
-		}
-		else
-		{
-			writer.print(value);
-		}
-	}
 }

@@ -8,6 +8,14 @@ import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSimpleCommand;
 import jlatex.content.LatexText;
 
+/**
+ * Represents a block of content in LaTeX offering a \begin{} and \end{} command.
+ * 
+ * @author Michael Oland
+ *
+ * @param <T> Implementing type (for builder mechanism)
+ * @param <C> Expected content type
+ */
 public abstract class LatexBlock<T, C extends LatexContent> implements LatexContent
 {
 	private LatexSimpleCommand beginBlock;
@@ -23,6 +31,12 @@ public abstract class LatexBlock<T, C extends LatexContent> implements LatexCont
 		endBlock = new LatexSimpleCommand("end", true, nameParam);
 	}
 
+	/**
+	 * Add a parameter to the begin tag
+	 * 
+	 * @param parameter Parameter to add to the tag
+	 * @return This
+	 */
 	@SuppressWarnings("unchecked")
 	protected T addBeginParameter(LatexCommandParameter<?> parameter)
 	{
@@ -34,15 +48,18 @@ public abstract class LatexBlock<T, C extends LatexContent> implements LatexCont
 	public void write(PrintWriter writer)
 	{
 		beginBlock.write(writer);
-		writer.println();
 
 		getContents().forEach(content -> {
 			content.write(writer);
 		});
 
 		endBlock.write(writer);
-		writer.println();
 	}
 
+	/**
+	 * Gets the content
+	 * 
+	 * @return An interable collection of contents
+	 */
 	protected abstract Iterable<C> getContents();
 }

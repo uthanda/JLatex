@@ -6,6 +6,22 @@ import java.util.List;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.util.LatexBlock;
 
+/**
+ * Represents a tabular section.
+ * 
+ * <pre>
+ * \begin{tabular}{|c|c|}
+ *   \hline
+ *   A &amp; B \\
+ *   \hline
+ *   C &amp; D \\
+ *   \hline
+ * \end{tabular}
+ * </pre>
+ * 
+ * @author Michael Oland
+ *
+ */
 public class LatexTabular extends LatexBlock<LatexTabular, LatexRow>
 {
 	private LatexColumnSpecifications columnSpecifications = new LatexColumnSpecifications();
@@ -14,12 +30,20 @@ public class LatexTabular extends LatexBlock<LatexTabular, LatexRow>
 
 	private List<LatexRow> rows = new ArrayList<>();
 
-	protected LatexTabular()
+	/**
+	 * Creates the tabular section
+	 */
+	public LatexTabular()
 	{
 		super("tabular");
 		addBeginParameter(columnSpecificationsParameter);
 	}
 
+	/**
+	 * Gets the column specifications.
+	 * 
+	 * @return Column specifications
+	 */
 	public List<LatexColumnSpecification> getColumnSpecifications()
 	{
 		return columnSpecifications.getColumnSpecifications();

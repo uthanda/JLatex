@@ -6,30 +6,53 @@ import java.util.List;
 
 import jlatex.util.LatexContent;
 
-public class LatexContentStream<T extends LatexContent> implements LatexContent
+/**
+ * Represents a stream of LaTeX content elements.  The contents are
+ * rendered in order provided.
+ * 
+ * @author Michael Oland
+ *
+ * @param <C> Expected content type
+ * @param <T> Subclass for builder pattern.
+ */
+public class LatexContentStream<T,C extends LatexContent> implements LatexContent
 {
-	private List<T> contents = new ArrayList<>();
+	private List<C> contents = new ArrayList<>();
 
-	public List<T> getContents()
+	/**
+	 * Gets the contents of the stream
+	 * 
+	 * @return Contents
+	 */
+	public List<C> getContents()
 	{
 		return contents;
 	}
 
-	public void setContents(List<T> contents)
-	{
-		this.contents = contents;
-	}
-	
-	public LatexContentStream<T> addContents(List<T> contents)
+	/**
+	 * Adds a list of content to the stream
+	 * 
+	 * @param contents Contents to add
+	 * @return This
+	 */
+	@SuppressWarnings("unchecked")
+	public T addContents(List<C> contents)
 	{
 		this.contents.addAll(contents);
-		return this;
+		return (T) this;
 	}
 	
-	public LatexContentStream<T> addContent(T content)
+	/**
+	 * Adds a content to the stream
+	 * 
+	 * @param content Content to add
+	 * @return This
+	 */
+	@SuppressWarnings("unchecked")
+	public T addContent(C content)
 	{
 		this.contents.add(content);
-		return this;
+		return (T) this;
 	}
 
 	@Override

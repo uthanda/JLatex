@@ -3,7 +3,7 @@ package jlatex.table;
 import java.util.ArrayList;
 import java.util.List;
 
-import jlatex.command.LatexCommand;
+import jlatex.command.LatexSimpleCommand;
 import jlatex.command.LatexSquareBracketCommandParameter;
 import jlatex.content.LatexNewLine;
 import jlatex.content.LatexText;
@@ -119,7 +119,7 @@ public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 
 		if (centering)
 		{
-			contents.add(new LatexCommand<>("centering"));
+			contents.add(new LatexSimpleCommand("centering"));
 			contents.add(new LatexNewLine());
 		}
 

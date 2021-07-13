@@ -4,8 +4,9 @@ import java.util.List;
 
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSimpleCommand;
-import jlatex.content.LatexContentStream;
 import jlatex.content.LatexInteger;
+import jlatex.content.LatexSimpleContentStream;
+import jlatex.layout.LatexMeasurement;
 import jlatex.util.LatexContent;
 
 public class LatexMultiColumn extends LatexColumn
@@ -20,7 +21,7 @@ public class LatexMultiColumn extends LatexColumn
 
 	private LatexCurlyBraceCommandParameter columnSpecificationsParameter = new LatexCurlyBraceCommandParameter(columnSpecifications);
 
-	private LatexContentStream<LatexContent> content = new LatexContentStream<>();
+	private LatexSimpleContentStream content = new LatexSimpleContentStream();
 
 	private LatexCurlyBraceCommandParameter contentParameter = new LatexCurlyBraceCommandParameter(content);
 
@@ -73,17 +74,17 @@ public class LatexMultiColumn extends LatexColumn
 		return this;
 	}
 
-	public Integer getWidth()
+	public LatexMeasurement getWidth()
 	{
 		return this.columnSpecification.getWidth();
 	}
 
-	public void setWidth(Integer width)
+	public void setWidth(LatexMeasurement width)
 	{
 		this.columnSpecification.setWidth(width);
 	}
 
-	public LatexMultiColumn width(Integer width)
+	public LatexMultiColumn width(LatexMeasurement width)
 	{
 		this.columnSpecification.setWidth(width);
 		return this;
