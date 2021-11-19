@@ -34,6 +34,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
+		<module>jlatex.api</module>
 		<module>jlatex.bibtex</module>
 		<module>jlatex.samples</module>
 	</modules>
