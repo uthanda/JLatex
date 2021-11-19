@@ -87,7 +87,7 @@ public class LatexText implements LatexContent
 		// Likely there is a static map that can be used instead of a hard-coded switch statement
 		switch (character)
 		{
-			case 'Ş':
+			case 'Ș':
 			{
 				target.append("\\c{S}");
 				break;
