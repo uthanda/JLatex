@@ -16,10 +16,6 @@ public class LatexText implements LatexContent
 	private String text = "";
 	private boolean escapeCharacters = true;
 
-	public LatexText()
-	{
-	}
-
 	@Override
 	public boolean isEmpty()
 	{
@@ -108,11 +104,14 @@ public class LatexText implements LatexContent
 			case '}':
 			{
 				target.append("\\");
+				target.append((char) character);
+				break;
 			}
 
 			default:
 			{
 				target.append((char) character);
+				break;
 			}
 		}
 	}
