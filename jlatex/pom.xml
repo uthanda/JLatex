@@ -7,11 +7,11 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>github</id>
-			<url>https://github.com/bashterm/JLatex</url>
+			<url>https://maven.pkg.github.com/bashterm/JLatex</url>
 		</snapshotRepository>
 		<repository>
 			<id>github</id>
-			<url>https://github.com/bashterm/JLatex</url>
+			<url>https://maven.pkg.github.com/bashterm/JLatex</url>
 		</repository>
 	</distributionManagement>
 	<build>
