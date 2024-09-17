@@ -93,6 +93,18 @@ public class LatexColumnSpecification implements LatexContent
 		return this;
 	}
 
+	public LatexColumnSpecification alignmentCentered()
+	{
+		this.setAlignment(LatexColumnAlignment.CENTERED);
+		return this;
+	}
+	
+	public LatexColumnSpecification alignmentLeftJustified()
+	{
+		this.setAlignment(LatexColumnAlignment.LEFT_JUSTIFIED);
+		return this;
+	}
+	
 	/**
 	 * Gets the width
 	 * 
@@ -156,6 +168,30 @@ public class LatexColumnSpecification implements LatexContent
 		this.before = before;
 		return this;
 	}
+	
+	/**
+	 * Sets the formatting before the column
+	 * 
+	 * @param before Formatting before
+	 * @return This
+	 */
+	public LatexColumnSpecification beforeSingle()
+	{
+		this.before = LatexColumnLine.SINGLE;
+		return this;
+	}
+	
+	/**
+	 * Sets the formatting before the column
+	 * 
+	 * @param before Formatting before
+	 * @return This
+	 */
+	public LatexColumnSpecification beforeDouble()
+	{
+		this.before = LatexColumnLine.DOUBLE;
+		return this;
+	}
 
 	/**
 	 * Gets the formatting after the column
@@ -186,6 +222,18 @@ public class LatexColumnSpecification implements LatexContent
 	public LatexColumnSpecification after(LatexColumnLine after)
 	{
 		this.after = after;
+		return this;
+	}
+
+	public LatexColumnSpecification afterSingle()
+	{
+		this.after = LatexColumnLine.SINGLE;
+		return this;
+	}
+	
+	public LatexColumnSpecification afterDouble()
+	{
+		this.after = LatexColumnLine.DOUBLE;
 		return this;
 	}
 
