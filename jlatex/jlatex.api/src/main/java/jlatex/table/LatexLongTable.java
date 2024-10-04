@@ -97,6 +97,7 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 		contents.add(new LatexComment().comment("Start the caption/label which must be at the top"));
 
 		contents.add(caption);
+		contents.add(new LatexNewLine());
 		contents.add(label);
 		contents.add(new LatexText().content("\\\\").escapeCharacters(false));
 		contents.add(new LatexNewLine());
@@ -176,6 +177,12 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 	public LatexLongTable addCaptionLongTextContent(LatexContent content)
 	{
 		this.caption.addLongTextContent(content);
+		return this;
+	}
+	
+	public LatexLongTable addCaptionLongTextContent(String content)
+	{
+		this.caption.addLongTextContent(new LatexText().content(content));
 		return this;
 	}
 
