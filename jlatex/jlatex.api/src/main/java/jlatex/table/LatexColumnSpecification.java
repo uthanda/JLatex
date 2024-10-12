@@ -252,7 +252,7 @@ public class LatexColumnSpecification implements LatexContent
 				if (width != null)
 				{
 					writer.print('{');
-					writer.print(width);
+					width.write(writer);
 					writer.print('}');
 				}
 				break;

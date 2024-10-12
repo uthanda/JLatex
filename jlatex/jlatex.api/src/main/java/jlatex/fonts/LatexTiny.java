@@ -1,11 +1,11 @@
 package jlatex.fonts;
 
-import jlatex.command.LatexCommand;
+import jlatex.util.LatexContentBlock;
 
-public class LatexTiny extends LatexCommand<LatexTiny>
+public class LatexTiny extends LatexContentBlock<LatexTiny>
 {
 	public LatexTiny()
 	{
-		super("tiny", true);
+		super("tiny");
 	}
 }

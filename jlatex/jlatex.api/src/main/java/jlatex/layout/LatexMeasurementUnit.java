@@ -25,10 +25,11 @@ public enum LatexMeasurementUnit implements LatexEnumeration
 
 	private String content;
 	
-	private LatexMeasurementUnit(String content) {
+	private LatexMeasurementUnit(String content)
+	{
 		this.content = content;
 	}
-	
+
 	@Override
 	public String getLatexContent()
 	{

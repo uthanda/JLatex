@@ -58,6 +58,7 @@ public class LatexContentStream<T,C extends LatexContent> implements LatexConten
 	@Override
 	public void write(PrintWriter writer)
 	{
-		contents.forEach(content -> content.write(writer));
+		contents.forEach(content -> 
+			content.write(writer));
 	}
 }

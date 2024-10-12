@@ -33,7 +33,7 @@ public abstract class LatexCommandParameter<T> implements LatexContent
 	 * @param content
 	 *            The parameter content
 	 */
-	public LatexCommandParameter(char start, char end, LatexContent content)
+	protected LatexCommandParameter(char start, char end, LatexContent content)
 	{
 		this.start = start;
 		this.end = end;

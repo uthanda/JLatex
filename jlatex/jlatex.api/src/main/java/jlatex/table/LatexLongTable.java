@@ -133,8 +133,12 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 
 			LatexContentRow row = new LatexContentRow();
 
-			LatexMultiColumn mc = new LatexMultiColumn().columns(columnSpecifications.getColumnSpecifications().size()).addContents(footer.getContents())
-					.before(LatexColumnLine.SINGLE).after(LatexColumnLine.SINGLE).alignment(LatexColumnAlignment.LEFT_JUSTIFIED);
+			LatexMultiColumn mc = new LatexMultiColumn()
+					.columns(columnSpecifications.getColumnSpecifications().size())
+					.addContents(footer.getContents())
+					.before(LatexColumnLine.SINGLE)
+					.after(LatexColumnLine.SINGLE)
+					.alignment(LatexColumnAlignment.LEFT_JUSTIFIED);
 
 			row.addColumn(mc);
 
