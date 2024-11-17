@@ -16,6 +16,15 @@ public class LatexText implements LatexContent
 	private String text = "";
 	private boolean escapeCharacters = true;
 
+	public LatexText()
+	{
+	}
+	
+	public LatexText(String text)
+	{
+		content(text);
+	}
+
 	@Override
 	public boolean isEmpty()
 	{

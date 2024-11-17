@@ -15,7 +15,7 @@ import jlatex.util.LatexContent;
  * @param <C> Expected content type
  * @param <T> Subclass for builder pattern.
  */
-public class LatexContentStream<T,C extends LatexContent> implements LatexContent
+public abstract class LatexContentStream<T,C extends LatexContent> implements LatexContent
 {
 	private List<C> contents = new ArrayList<>();
 
