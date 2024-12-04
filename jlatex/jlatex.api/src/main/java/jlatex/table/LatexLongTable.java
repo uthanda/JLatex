@@ -1,19 +1,28 @@
 package jlatex.table;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.command.LatexSimpleCommand;
 import jlatex.content.LatexContentStream;
-import jlatex.content.LatexNewLine;
+import jlatex.content.LatexInteger;
+import jlatex.content.LatexSimpleContentStream;
 import jlatex.content.LatexText;
 import jlatex.content.text.LatexTextBold;
+import jlatex.layout.LatexFixedMeasurementElement;
+import jlatex.layout.LatexMeasurement;
+import jlatex.layout.LatexMeasurementUnit;
 import jlatex.reference.LatexCaption;
 import jlatex.reference.LatexLabel;
 import jlatex.util.LatexBlock;
 import jlatex.util.LatexComment;
 import jlatex.util.LatexContent;
+import jlatex.util.LatexNewline;
+import jlatex.util.LatexSystemNewLine;
 
 /**
  * Represents a long table that can be split across multiple pages.
@@ -97,10 +106,10 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 		contents.add(new LatexComment().comment("Start the caption/label which must be at the top"));
 
 		contents.add(caption);
-		contents.add(new LatexNewLine());
+		contents.add(new LatexSystemNewLine());
 		contents.add(label);
 		contents.add(new LatexText().content("\\\\").escapeCharacters(false));
-		contents.add(new LatexNewLine());
+		contents.add(new LatexSystemNewLine());
 
 		if (this.headers)
 		{
@@ -108,15 +117,14 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 
 			LatexContentRow headerRow = new LatexContentRow();
 
-			columnSpecifications.getColumnSpecifications().forEach(s -> {
-				headerRow.addColumn(new LatexColumn().addContent(new LatexTextBold().addContent(s.getTitle())));
-			});
+			columnSpecifications.getColumnSpecifications()
+					.forEach(s -> headerRow.addColumn(new LatexColumn().addContent(new LatexTextBold().addContent(s.getTitle()))));
 
 			contents.add(new LatexHline());
 			contents.add(headerRow);
 			contents.add(new LatexHline());
 			contents.add(new LatexSimpleCommand("endfirsthead"));
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 
 			contents.add(new LatexComment().comment("Create the header rows for the remaining part of the table"));
 
@@ -124,7 +132,7 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 			contents.add(headerRow);
 			contents.add(new LatexHline());
 			contents.add(new LatexSimpleCommand("endhead"));
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 		}
 
 		if (footer != null)
@@ -146,14 +154,14 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 			contents.add(row);
 			contents.add(new LatexHline());
 			contents.add(new LatexSimpleCommand("endfoot"));
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 
 			contents.add(new LatexComment().comment("Create the end of table footer"));
 
 			contents.add(new LatexHline());
 
 			contents.add(new LatexSimpleCommand("endlastfoot"));
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 
 		}
 
@@ -204,5 +212,173 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 	{
 		setLabel(label);
 		return this;
+	}
+	
+	public static class Builder
+	{
+		private List<Object> rows = new ArrayList<>();
+		private List<LatexColumnSpecification> columns = new ArrayList<>();
+		private String caption;
+		private String label;
+		private boolean labelFromCaption = false;
+		
+		public Builder withColumnSpecification(LatexColumnSpecification column)
+		{
+			columns.add(column);
+			return this;
+		}
+		
+		public Builder withColumnSpecification(LatexColumnAlignment alignment)
+		{
+			return withColumnSpecification(new LatexColumnSpecification()
+					.alignment(alignment));
+		}
+		
+		public Builder withColumnSpecification(LatexColumnAlignment alignment, int size, LatexMeasurementUnit unit)
+		{
+			return withColumnSpecification(new LatexColumnSpecification().alignment(alignment)
+					.width(new LatexMeasurement()
+							.addContent(new LatexFixedMeasurementElement()
+									.unit(unit)
+									.value(new LatexInteger().value(size))
+									)));
+		}
+		
+		public Builder withColumnSpecification(LatexColumnAlignment alignment, LatexColumnLine before, LatexColumnLine after)
+		{
+			return withColumnSpecification(new LatexColumnSpecification().alignment(alignment)
+					.before(before)
+					.after(after));
+		}
+		
+		public Builder withColumnSpecification(LatexColumnAlignment alignment, int size, LatexMeasurementUnit unit, LatexColumnLine before, LatexColumnLine after)
+		{
+			return withColumnSpecification(new LatexColumnSpecification().alignment(alignment)
+					.width(new LatexMeasurement()
+							.addContent(new LatexFixedMeasurementElement()
+									.unit(unit)
+									.value(new LatexInteger().value(size))
+									))
+					.before(before)
+					.after(after));
+		}
+		
+		@SuppressWarnings("unchecked")
+		public LatexLongTable build()
+		{
+			LatexLongTable table = new LatexLongTable();
+			
+			if(labelFromCaption)
+			{
+				Objects.requireNonNull(caption, "To generate label from caption, the caption must be provided");
+				
+				label = "tab:" + caption
+						.chars()
+						.mapToObj(c -> Character.isAlphabetic(c) ? Character.toString(c) : "_")
+						.collect(Collectors.joining());
+			}
+			
+			table.addCaptionLongTextContent(caption)
+				.label(label);
+			
+			table.addColumnSpecifications(columns);
+			
+			for(int i = 0; i < rows.size(); i++)
+			{
+				Object rr = rows.get(i);
+				
+				if(rr instanceof LatexHline)
+				{
+					table.addRow(((LatexHline)rr));
+					continue;
+				}
+				
+				List<LatexContent> r = (List<LatexContent>) rows.get(i);
+				
+				if(r.size() != columns.size())
+				{
+					throw new IllegalStateException("Row " + i + " column count does not match requred column count");
+				}
+				
+				List<LatexColumn> rowColumns = r.stream()
+						.map(e -> new LatexColumn().addContent(e))
+						.collect(Collectors.toList());
+				
+				LatexContentRow row = new LatexContentRow()
+						.addColumns(rowColumns);
+				
+				table.addRow(row);
+			}
+			
+			return table;
+		}
+
+		public Builder withRow(List<String> values)
+		{
+			rows.add(values.stream()
+					.map(v -> {
+						LatexSimpleContentStream content = new LatexSimpleContentStream();
+						
+						Arrays.asList(v.split("\n"))
+							.forEach(l -> 
+							{
+								if(!content.getContents().isEmpty())
+								{
+									content
+										.addContent(new LatexText().content(" "))
+										.addContent(new LatexNewline())
+										.addContent(new LatexText().content(" "));
+								}
+								
+								content.addContent(new LatexText().content(l));
+							});
+						
+						return content;
+					})
+					.collect(Collectors.toList()));
+			
+			return this;
+		}
+
+		public Builder addLine()
+		{
+			rows.add(new LatexHline());
+			return this;
+		}
+
+		public Builder addRow(Object... values)
+		{
+			rows.add((Arrays.asList(values)
+					.stream()
+					.map(v -> (LatexContent)new LatexText().content(v.toString()))
+					.collect(Collectors.toList())));
+			
+			return this;
+		}
+
+		public Builder withLabel(String label)
+		{
+			this.label = label;
+			return this;
+		}
+		
+		public Builder withCaption(String caption)
+		{
+			this.caption = caption;
+			return this;
+		}
+		
+		public Builder withLabelFromCaption()
+		{
+			this.labelFromCaption  = true;
+			return this;
+		}
+
+		public Builder addRows(List<List<String>> rows)
+		{
+			rows.forEach(this::withRow);
+			
+			return this;
+		}
 	}
 }

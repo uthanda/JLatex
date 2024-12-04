@@ -54,7 +54,7 @@ public class LatexContentRow implements LatexRow
 	 * @param columns Columns to add
 	 * @return
 	 */
-	public LatexContentRow addColumn(List<LatexColumn> columns)
+	public LatexContentRow addColumns(List<LatexColumn> columns)
 	{
 		this.columns.addAll(columns);
 		return this;

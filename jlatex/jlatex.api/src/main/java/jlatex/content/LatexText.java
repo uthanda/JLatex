@@ -153,4 +153,10 @@ public class LatexText implements LatexContent
 	{
 		this.escapeCharacters = escape;
 	}
+
+	public LatexContent content(int value)
+	{
+		this.content(Integer.toString(value));
+		return this;
+	}
 }

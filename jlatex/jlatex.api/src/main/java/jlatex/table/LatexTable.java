@@ -5,12 +5,12 @@ import java.util.List;
 
 import jlatex.command.LatexSimpleCommand;
 import jlatex.command.LatexSquareBracketCommandParameter;
-import jlatex.content.LatexNewLine;
 import jlatex.content.LatexText;
 import jlatex.reference.LatexCaption;
 import jlatex.reference.LatexLabel;
 import jlatex.util.LatexBlock;
 import jlatex.util.LatexContent;
+import jlatex.util.LatexSystemNewLine;
 
 public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 {
@@ -120,13 +120,13 @@ public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 		if (centering)
 		{
 			contents.add(new LatexSimpleCommand("centering"));
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 		}
 
 		if (captionTop)
 		{
 			contents.add(caption);
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 		}
 
 		contents.add(tabular);
@@ -134,11 +134,11 @@ public class LatexTable extends LatexBlock<LatexTable, LatexContent>
 		if (!captionTop)
 		{
 			contents.add(caption);
-			contents.add(new LatexNewLine());
+			contents.add(new LatexSystemNewLine());
 		}
 
 		contents.add(label);
-		contents.add(new LatexNewLine());
+		contents.add(new LatexSystemNewLine());
 
 		return contents;
 	}

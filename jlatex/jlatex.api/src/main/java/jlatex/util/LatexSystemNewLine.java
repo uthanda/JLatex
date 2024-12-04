@@ -1,8 +1,6 @@
-package jlatex.content;
+package jlatex.util;
 
 import java.io.PrintWriter;
-
-import jlatex.util.LatexContent;
 
 /**
  * Represents a simple newline (characters 0xA, 0xB or 0xA0xB).
@@ -10,7 +8,7 @@ import jlatex.util.LatexContent;
  * @author Michael Oland
  *
  */
-public class LatexNewLine implements LatexContent
+public class LatexSystemNewLine implements LatexContent
 {
 	@Override
 	public void write(PrintWriter writer)
