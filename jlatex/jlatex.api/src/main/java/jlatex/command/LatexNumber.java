@@ -1,4 +1,4 @@
-package jlatex.content;
+package jlatex.command;
 
 import java.io.PrintWriter;
 

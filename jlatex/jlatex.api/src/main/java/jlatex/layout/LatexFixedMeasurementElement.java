@@ -2,7 +2,7 @@ package jlatex.layout;
 
 import java.io.PrintWriter;
 
-import jlatex.content.LatexNumber;
+import jlatex.command.LatexNumber;
 
 public class LatexFixedMeasurementElement implements LatexMeasurementElement
 {

@@ -275,7 +275,8 @@ public class LatexLongTable extends LatexBlock<LatexLongTable, LatexContent>
 				label = "tab:" + caption
 						.chars()
 						.mapToObj(c -> Character.isAlphabetic(c) ? Character.toString(c) : "_")
-						.collect(Collectors.joining());
+						.collect(Collectors.joining())
+						.toLowerCase();
 			}
 			
 			table.addCaptionLongTextContent(caption)

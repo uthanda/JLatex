@@ -1,5 +1,7 @@
 package jlatex.content;
 
+import jlatex.command.LatexNumber;
+
 /**
  * Represents a floating point number as LaTeX content. The floating point
  * number can be rendered directly ({{@link Float#toString()}) or if necessary,

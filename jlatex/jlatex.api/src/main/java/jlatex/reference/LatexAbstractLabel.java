@@ -11,14 +11,16 @@ import jlatex.content.LatexText;
  *
  * @param <T> Subclass for the builder paradigm. 
  */
-public abstract class LatexAbstractLabel<T> extends LatexCommand<LatexReference>
+public abstract class LatexAbstractLabel<T extends LatexAbstractLabel<T>> extends LatexCommand<T>
 {
 	private LatexText label = new LatexText().escapeCharacters(false);
+
 	private LatexCurlyBraceCommandParameter labelParam = new LatexCurlyBraceCommandParameter(label);
 
-	public LatexAbstractLabel(String name)
+	protected LatexAbstractLabel(String name)
 	{
 		super(name);
+
 		addParameter(labelParam);
 	}
 

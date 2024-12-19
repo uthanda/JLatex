@@ -49,6 +49,12 @@ public class LatexKeyValueList implements LatexContent
 		this.setValue(pair);
 		return this;
 	}
+	
+	@Override
+	public boolean isEmpty()
+	{
+		return values.isEmpty();
+	}
 
 	@Override
 	public void write(PrintWriter writer)
@@ -70,6 +76,21 @@ public class LatexKeyValueList implements LatexContent
 		}
 	}
 
+	public static class LatexContentKeyValuePair extends LatexKeyValuePair<LatexContentKeyValuePair,LatexContent>
+	{
+		public LatexContentKeyValuePair(String key)
+		{
+			super(key);
+		}
+
+		@Override
+		protected String formatValue(LatexContent value)
+		{
+			return value.write();
+		}
+	}
+	
+	
 	/**
 	 * Represents a key to string value pair.
 	 * 
@@ -184,7 +205,7 @@ public class LatexKeyValueList implements LatexContent
 	 * @param <T> Subclass for builder paradigm
 	 * @param <V> Value type
 	 */
-	public static abstract class LatexKeyValuePair<T, V> implements LatexContent
+	public abstract static class LatexKeyValuePair<T, V> implements LatexContent
 	{
 		private final String key;
 		private V value;

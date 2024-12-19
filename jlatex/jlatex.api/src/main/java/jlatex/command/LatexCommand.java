@@ -46,6 +46,20 @@ public abstract class LatexCommand<T> implements LatexContent
 		this.name = name;
 		this.parameters.addAll(Arrays.asList(parameters));
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T noNewLine()
+	{
+		this.addNewLine = false;
+		return (T) this;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T newLine()
+	{
+		this.addNewLine = true;
+		return (T) this;
+	}
 
 	/**
 	 * Adds an additional parameter to the command.

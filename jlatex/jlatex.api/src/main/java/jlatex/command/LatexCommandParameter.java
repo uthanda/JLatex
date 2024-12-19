@@ -17,7 +17,9 @@ import jlatex.util.LatexContent;
  */
 public abstract class LatexCommandParameter<T> implements LatexContent
 {
-	private final char start, end;
+	private final char start;
+	private final char end;
+	
 	private final LatexContent content;
 
 	private boolean optional = false;
