@@ -3,6 +3,7 @@ package jlatex.graphics;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import jlatex.layout.LatexLength;
 import jlatex.util.LatexKeyValueList.LatexContentKeyValuePair;
@@ -38,7 +39,7 @@ public abstract class LatexGraphic<T extends LatexGraphic<T>> extends LatexKeyVa
 				)
 				.stream()
 				.flatMap(List::stream)
-				.toList(), l -> ((LatexGraphic<?>)l).filename);
+				.collect(Collectors.toList()), l -> ((LatexGraphic<?>)l).filename);
 	}
 
 	private static LatexKeyValuePair<?,?> renderWidth(LatexGraphic<?> g)
