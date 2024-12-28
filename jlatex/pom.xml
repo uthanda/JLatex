@@ -20,17 +20,6 @@
 					<target>11</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.2</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>1.3.2</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
 	</build>
 	<dependencyManagement>
@@ -40,11 +29,6 @@
 				<artifactId>junit-jupiter-engine</artifactId>
 				<version>${version.junit}</version>
 				<type>pom.sha512</type>
-			</dependency>
-			<dependency>
-				<groupId>jlatex</groupId>
-				<artifactId>jlatex.api</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
