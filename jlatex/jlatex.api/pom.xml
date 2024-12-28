@@ -11,8 +11,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<type>pom.sha512</type>
+			<artifactId>junit-jupiter</artifactId>
+			<type>pom</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
