@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import jlatex.content.LatexSimpleContentStream;
+import jlatex.content.LatexText;
 import jlatex.layout.LatexMeasurement;
 import jlatex.util.LatexContent;
 
@@ -262,5 +263,11 @@ public class LatexColumnSpecification implements LatexContent
 		}
 
 		writer.print(after == null ? "" : after.getLatexContent());
+	}
+
+	public LatexColumnSpecification title(String title)
+	{
+		this.title.addContent(new LatexText(title));
+		return this;
 	}
 }

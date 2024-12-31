@@ -6,6 +6,7 @@ import jlatex.command.LatexCommand;
 import jlatex.command.LatexCommandParameter;
 import jlatex.command.LatexCurlyBraceCommandParameter;
 import jlatex.content.LatexSimpleContentStream;
+import jlatex.content.LatexText;
 import jlatex.util.LatexContent;
 
 /**
@@ -28,7 +29,7 @@ public abstract class LatexTextFormatCommand<T> extends LatexCommand<LatexTextFo
 	 * @param name Name of command
 	 * @param parameters Optional additional parameters
 	 */
-	public LatexTextFormatCommand(String name, LatexCommandParameter<?>... parameters)
+	protected LatexTextFormatCommand(String name, LatexCommandParameter<?>... parameters)
 	{
 		super(name, parameters);
 		super.addParameter(contentParameter);
@@ -38,7 +39,7 @@ public abstract class LatexTextFormatCommand<T> extends LatexCommand<LatexTextFo
 	 * Adds content to the format command
 	 * 
 	 * @param content Content to add
-	 * @return This
+	 * @return This for chaining purposes.
 	 */
 	@SuppressWarnings("unchecked")
 	public T addContent(LatexContent content)
@@ -51,12 +52,23 @@ public abstract class LatexTextFormatCommand<T> extends LatexCommand<LatexTextFo
 	 * Adds contents to the format command
 	 * 
 	 * @param contents Contents to add
-	 * @return This
+	 * @return This for chaining purposes.
 	 */
 	@SuppressWarnings("unchecked")
 	public T addContents(List<LatexContent> contents)
 	{
 		stream.addContents(contents);
 		return (T) this;
+	}
+
+	/**
+	 * Adds text to the command.  The same as passing a new {@link jlatex.content.LatexText LatexText} to the {@link #addContent(LatexContent)} method.
+	 * 
+	 * @param text Text to add
+	 * @return This for chaining purposes.
+	 */
+	public T addText(String text)
+	{
+		return this.addContent(new LatexText().content(text));
 	}
 }
